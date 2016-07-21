@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8F05637CD131B8439F53E701'
+               BlueprintIdentifier = 'AA40885DBF91AA453745DAE4'
                BlueprintName = 'Pods-XiyouScore'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_XiyouScore.framework'>
