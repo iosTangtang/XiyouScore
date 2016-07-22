@@ -11,7 +11,6 @@
 
 typedef void(^XYSSucceedBlock)(id dic);
 typedef void(^XYSErrorBlock)(NSError *error);
-typedef void(^XYSProgress)(double count);
 
 @interface XYSHTTPRequestSession : NSObject
 
@@ -62,8 +61,7 @@ typedef void(^XYSProgress)(double count);
           fileName:(NSString *)fileName
           progress:(NSProgress **)kProgress
            success:(XYSSucceedBlock)success
-             error:(XYSErrorBlock)errorBlock
- fractionCompleted:(XYSProgress)progress;
+             error:(XYSErrorBlock)errorBlock;
 
 /**
  *  下载文件方法
@@ -80,8 +78,7 @@ typedef void(^XYSProgress)(double count);
         fileDownPath:(NSString *)fileDownPath
             progress:(NSProgress **)kProgress
              success:(XYSSucceedBlock)success
-               error:(XYSErrorBlock)errorBlock
-   fractionCompleted:(XYSProgress)progress;
+               error:(XYSErrorBlock)errorBlock;
 
 /**
  *  取消请求的方法

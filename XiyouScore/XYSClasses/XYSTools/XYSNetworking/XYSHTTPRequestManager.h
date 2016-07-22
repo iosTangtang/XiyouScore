@@ -47,7 +47,7 @@ typedef void(^XYSErrorBlock)(NSError *error);
 - (void)getDataWithUrl:(NSString *)urlStr
             WithParams:(id)params
                success:(XYSSucceedBlock)success
-                 error:(XYSErrorBlock)error;
+                 error:(XYSErrorBlock)errorBlock;
 
 /**
  *  POST请求方法
@@ -60,7 +60,7 @@ typedef void(^XYSErrorBlock)(NSError *error);
 - (void)postDataWithUrl:(NSString *)urlStr
             WithParams:(id)params
                success:(XYSSucceedBlock)success
-                 error:(XYSErrorBlock)error;
+                 error:(XYSErrorBlock)errorBlock;
 
 /**
  *  上传文件方法
@@ -69,6 +69,7 @@ typedef void(^XYSErrorBlock)(NSError *error);
  *  @param params     请求参数
  *  @param data       所要上传的文件的数据(data)
  *  @param suffixName 所要上传的文件的后缀名
+ *  @param kProgress  获取下载进度的类
  *  @param success    请求成功回调的block
  *  @param error      请求失败回调的block
  */
@@ -76,21 +77,24 @@ typedef void(^XYSErrorBlock)(NSError *error);
                WithParams:(id)params
                  fileData:(NSData *)data
            fileSuffixName:(NSString *)suffixName
+                 progress:(NSProgress **)kProgress
                   success:(XYSSucceedBlock)success
-                    error:(XYSErrorBlock)error;
+                    error:(XYSErrorBlock)errorBlock;
 
 /**
  *  下载文件方法
  *
  *  @param urlStr    请求接口
  *  @param params    请求参数
+ *  @param kProgress  获取下载进度的类
  *  @param success   下载成功回调的block
  *  @param error     下载失败回调的block
  */
 - (void)downloadFileWithUrl:(NSString *)urlStr
                  WithParams:(id)params
+                   progress:(NSProgress **)kProgress
                     success:(XYSSucceedBlock)success
-                      error:(XYSErrorBlock)error;
+                      error:(XYSErrorBlock)errorBlock;
 
 /**
  *  取消请求的方法

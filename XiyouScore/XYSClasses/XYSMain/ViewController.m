@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "XYSHTTPRequestSession.h"
+#import "XYSHTTPRequestManager.h"
 
 @interface ViewController ()
 
@@ -18,27 +19,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    XYSHTTPRequestSession *session = [[XYSHTTPRequestSession alloc] init];
-    NSString *url = [NSString stringWithFormat:@"http://help.adobe.com/archive/en/photoshop/cs6/photoshop_reference.pdf"];
-    session.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    NSString *path = NSHomeDirectory();
+//    XYSHTTPRequestSession *session = [[XYSHTTPRequestSession alloc] init];
+    NSString *url = [NSString stringWithFormat:@"http://api.map.baidu.com/telematics/v3/weather?location=xian&output=json&ak=Gi27P5bmIinr86htrjU4ESnY"];
+//    session.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    NSString *path = NSHomeDirectory();
+//    
+//    NSString *cacheDiretory= [path stringByAppendingPathComponent:@"Library/Caches/"];
+//    
+//    cacheDiretory = [cacheDiretory stringByAppendingPathComponent:@"webCache"];
     
-    NSString *cacheDiretory= [path stringByAppendingPathComponent:@"Library/Caches/"];
+//    NSProgress *progress = nil;
     
-    cacheDiretory = [cacheDiretory stringByAppendingPathComponent:@"webCache"];
+//    [session downLoadFile:url WithParams:nil fileDownPath:cacheDiretory  progress:&progress success:^(id dic) {
+//        [progress removeObserver:self forKeyPath:@"fractionCompleted"];
+//        NSLog(@"%@",dic);
+//    } error:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
     
-    NSProgress *progress = nil;
+    XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
+//    [requestManager downloadFileWithUrl:url WithParams:nil progress:&progress success:^(id dic) {
+//        [progress removeObserver:self forKeyPath:@"fractionCompleted"];
+//        NSLog(@"%@", dic);
+//    } error:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
     
-    [session downLoadFile:url WithParams:nil fileDownPath:cacheDiretory  progress:&progress success:^(id dic) {
-        [progress removeObserver:self forKeyPath:@"fractionCompleted"];
-        NSLog(@"%@",dic);
+//    [requestManager postDataWithUrl:url WithParams:nil success:^(id dic) {
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
+//        NSLog(@"%@", dict);
+//        
+//    } error:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
+    [requestManager getDataWithUrl:url WithParams:nil success:^(id dic) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"%@", dict);
     } error:^(NSError *error) {
         NSLog(@"%@", error);
-    } fractionCompleted:^(double count) {
-        NSLog(@"--------%f", count);
     }];
     
-    [progress addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:NULL];
+    
+//    [progress addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:NULL];
     
 }
 

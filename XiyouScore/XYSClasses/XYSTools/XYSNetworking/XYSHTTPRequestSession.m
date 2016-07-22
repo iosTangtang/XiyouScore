@@ -88,8 +88,7 @@
           fileName:(NSString *)fileName
           progress:(NSProgress **)kProgress
            success:(XYSSucceedBlock)success
-             error:(XYSErrorBlock)errorBlock
- fractionCompleted:(XYSProgress)progress {
+             error:(XYSErrorBlock)errorBlock {
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlStr parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"application/octet-stream"];
@@ -118,8 +117,7 @@
         fileDownPath:(NSString *)fileDownPath
             progress:(NSProgress **)kProgress
              success:(XYSSucceedBlock)success
-               error:(XYSErrorBlock)errorBlock
-   fractionCompleted:(XYSProgress)progress {
+               error:(XYSErrorBlock)errorBlock {
     
     NSURL *URL = [NSURL URLWithString:urlStr];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
