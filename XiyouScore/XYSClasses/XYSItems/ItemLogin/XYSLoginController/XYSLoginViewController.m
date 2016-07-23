@@ -1,23 +1,22 @@
 //
-//  XYSSettingController.m
+//  XYSLoginViewController.m
 //  XiyouScore
 //
-//  Created by Tangtang on 16/7/21.
+//  Created by Tangtang on 16/7/23.
 //  Copyright © 2016年 Tangtang. All rights reserved.
 //
 
-#import "XYSSettingController.h"
+#import "XYSLoginViewController.h"
 
-@interface XYSSettingController ()
+@interface XYSLoginViewController ()
 
 @end
 
-@implementation XYSSettingController
+@implementation XYSLoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

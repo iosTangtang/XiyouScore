@@ -16,8 +16,6 @@
 		664438D61D406CE50022D5CE /* XiyouScoreUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 664438D51D406CE50022D5CE /* XiyouScoreUITests.m */; };
 		664438EC1D406DF40022D5CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 664438E91D406DF40022D5CE /* AppDelegate.m */; };
 		664438ED1D406DF40022D5CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664438EB1D406DF40022D5CE /* ViewController.m */; };
-		664438F01D406EC40022D5CE /* XYSNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664438EF1D406EC40022D5CE /* XYSNavigationController.m */; };
-		664438F31D406EF10022D5CE /* XYSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664438F21D406EF10022D5CE /* XYSTabBarController.m */; };
 		664439091D40745C0022D5CE /* XYSQueryScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439081D40745C0022D5CE /* XYSQueryScoreController.m */; };
 		6644390C1D40747A0022D5CE /* XYSContainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6644390B1D40747A0022D5CE /* XYSContainerController.m */; };
 		664439101D4074A90022D5CE /* XYSQueryScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6644390E1D4074A90022D5CE /* XYSQueryScoreCell.m */; };
@@ -50,6 +48,9 @@
 		666E186F1D40B8DD003DBF84 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E186E1D40B8DD003DBF84 /* NSString+Hash.m */; };
 		666E187A1D40F8BB003DBF84 /* XYSHTTPRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E18771D40F8BB003DBF84 /* XYSHTTPRequestManager.m */; };
 		666E187B1D40F8BB003DBF84 /* XYSHTTPRequestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E18791D40F8BB003DBF84 /* XYSHTTPRequestSession.m */; };
+		667B7C1A1D43B31900EB5232 /* XYSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667B7C191D43B31900EB5232 /* XYSNavigationViewController.m */; };
+		667B7C1D1D43B35800EB5232 /* XYSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667B7C1C1D43B35800EB5232 /* XYSTabBarViewController.m */; };
+		667B7C241D43C0CC00EB5232 /* XYSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667B7C231D43C0CC00EB5232 /* XYSLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,10 +90,6 @@
 		664438E91D406DF40022D5CE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		664438EA1D406DF40022D5CE /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		664438EB1D406DF40022D5CE /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		664438EE1D406EC40022D5CE /* XYSNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSNavigationController.h; sourceTree = "<group>"; };
-		664438EF1D406EC40022D5CE /* XYSNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSNavigationController.m; sourceTree = "<group>"; };
-		664438F11D406EF10022D5CE /* XYSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSTabBarController.h; sourceTree = "<group>"; };
-		664438F21D406EF10022D5CE /* XYSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSTabBarController.m; sourceTree = "<group>"; };
 		664439061D4072940022D5CE /* XYSHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYSHeader.pch; sourceTree = "<group>"; };
 		664439071D40745C0022D5CE /* XYSQueryScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSQueryScoreController.h; sourceTree = "<group>"; };
 		664439081D40745C0022D5CE /* XYSQueryScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSQueryScoreController.m; sourceTree = "<group>"; };
@@ -153,6 +150,12 @@
 		666E18771D40F8BB003DBF84 /* XYSHTTPRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSHTTPRequestManager.m; sourceTree = "<group>"; };
 		666E18781D40F8BB003DBF84 /* XYSHTTPRequestSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSHTTPRequestSession.h; sourceTree = "<group>"; };
 		666E18791D40F8BB003DBF84 /* XYSHTTPRequestSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSHTTPRequestSession.m; sourceTree = "<group>"; };
+		667B7C181D43B31900EB5232 /* XYSNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSNavigationViewController.h; sourceTree = "<group>"; };
+		667B7C191D43B31900EB5232 /* XYSNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSNavigationViewController.m; sourceTree = "<group>"; };
+		667B7C1B1D43B35800EB5232 /* XYSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSTabBarViewController.h; sourceTree = "<group>"; };
+		667B7C1C1D43B35800EB5232 /* XYSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSTabBarViewController.m; sourceTree = "<group>"; };
+		667B7C221D43C0CC00EB5232 /* XYSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSLoginViewController.h; sourceTree = "<group>"; };
+		667B7C231D43C0CC00EB5232 /* XYSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSLoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,10 +281,10 @@
 				664438E91D406DF40022D5CE /* AppDelegate.m */,
 				664438EA1D406DF40022D5CE /* ViewController.h */,
 				664438EB1D406DF40022D5CE /* ViewController.m */,
-				664438EE1D406EC40022D5CE /* XYSNavigationController.h */,
-				664438EF1D406EC40022D5CE /* XYSNavigationController.m */,
-				664438F11D406EF10022D5CE /* XYSTabBarController.h */,
-				664438F21D406EF10022D5CE /* XYSTabBarController.m */,
+				667B7C181D43B31900EB5232 /* XYSNavigationViewController.h */,
+				667B7C191D43B31900EB5232 /* XYSNavigationViewController.m */,
+				667B7C1B1D43B35800EB5232 /* XYSTabBarViewController.h */,
+				667B7C1C1D43B35800EB5232 /* XYSTabBarViewController.m */,
 			);
 			path = XYSMain;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 		664438E51D406D9D0022D5CE /* XYSItems */ = {
 			isa = PBXGroup;
 			children = (
+				667B7C1E1D43C08300EB5232 /* ItemLogin */,
 				664438F41D406F2B0022D5CE /* ItemScore */,
 				664438F51D406F370022D5CE /* ItemUser */,
 				664438F61D406F410022D5CE /* ItemSetting */,
@@ -486,6 +490,39 @@
 			path = XYSLoadingTool;
 			sourceTree = "<group>";
 		};
+		667B7C1E1D43C08300EB5232 /* ItemLogin */ = {
+			isa = PBXGroup;
+			children = (
+				667B7C1F1D43C09D00EB5232 /* XYSLoginController */,
+				667B7C201D43C0A800EB5232 /* XYSLoginView */,
+				667B7C211D43C0B400EB5232 /* XYSLoginModel */,
+			);
+			path = ItemLogin;
+			sourceTree = "<group>";
+		};
+		667B7C1F1D43C09D00EB5232 /* XYSLoginController */ = {
+			isa = PBXGroup;
+			children = (
+				667B7C221D43C0CC00EB5232 /* XYSLoginViewController.h */,
+				667B7C231D43C0CC00EB5232 /* XYSLoginViewController.m */,
+			);
+			path = XYSLoginController;
+			sourceTree = "<group>";
+		};
+		667B7C201D43C0A800EB5232 /* XYSLoginView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = XYSLoginView;
+			sourceTree = "<group>";
+		};
+		667B7C211D43C0B400EB5232 /* XYSLoginModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = XYSLoginModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -556,6 +593,7 @@
 				TargetAttributes = {
 					664438AC1D406CE50022D5CE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = UHCLK74DHB;
 					};
 					664438C51D406CE50022D5CE = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -674,8 +712,8 @@
 			files = (
 				6644390C1D40747A0022D5CE /* XYSContainerController.m in Sources */,
 				6644391D1D4076E00022D5CE /* XYSUserController.m in Sources */,
-				664438F01D406EC40022D5CE /* XYSNavigationController.m in Sources */,
 				666E187B1D40F8BB003DBF84 /* XYSHTTPRequestSession.m in Sources */,
+				667B7C1D1D43B35800EB5232 /* XYSTabBarViewController.m in Sources */,
 				664439171D4074EF0022D5CE /* XYSTermModel.m in Sources */,
 				664439321D40774A0022D5CE /* XYSUserMessageCell.m in Sources */,
 				6644393B1D4077920022D5CE /* XYSCETModel.m in Sources */,
@@ -684,10 +722,10 @@
 				664439261D4077080022D5CE /* XYSRecommendController.m in Sources */,
 				664439411D407A2C0022D5CE /* XYSSettingController.m in Sources */,
 				664439441D407A3A0022D5CE /* XYSFeedBackController.m in Sources */,
+				667B7C1A1D43B31900EB5232 /* XYSNavigationViewController.m in Sources */,
 				664439471D407A4D0022D5CE /* XYSFAQController.m in Sources */,
 				664439371D40776C0022D5CE /* XYSRecommendCell.m in Sources */,
 				666E187A1D40F8BB003DBF84 /* XYSHTTPRequestManager.m in Sources */,
-				664438F31D406EF10022D5CE /* XYSTabBarController.m in Sources */,
 				6644394E1D407AD10022D5CE /* XYSFAQCell.m in Sources */,
 				664438EC1D406DF40022D5CE /* AppDelegate.m in Sources */,
 				664439581D407CE40022D5CE /* XYSLoadingView.m in Sources */,
@@ -695,6 +733,7 @@
 				664439101D4074A90022D5CE /* XYSQueryScoreCell.m in Sources */,
 				664439231D4076FB0022D5CE /* XYSQueryCETController.m in Sources */,
 				666E186F1D40B8DD003DBF84 /* NSString+Hash.m in Sources */,
+				667B7C241D43C0CC00EB5232 /* XYSLoginViewController.m in Sources */,
 				6644393E1D40779D0022D5CE /* XYSUserModel.m in Sources */,
 				664438B21D406CE50022D5CE /* main.m in Sources */,
 				6644392A1D4077230022D5CE /* XYSUserCell.m in Sources */,
@@ -847,6 +886,8 @@
 			baseConfigurationReference = 049AF414DA8FA37478145F54 /* Pods-XiyouScore.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = XiyouScore/XYSHeader.pch;
 				INFOPLIST_FILE = XiyouScore/Info.plist;
@@ -854,6 +895,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tang.XiyouScore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Debug;
@@ -863,6 +905,8 @@
 			baseConfigurationReference = 40458C61FA9A58A3C8936EF9 /* Pods-XiyouScore.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = XiyouScore/XYSHeader.pch;
 				INFOPLIST_FILE = XiyouScore/Info.plist;
@@ -870,6 +914,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tang.XiyouScore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Release;
