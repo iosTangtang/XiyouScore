@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "XYSTabBarViewController.h"
+#import "XYSLoginViewController.h"
+#import "XYSNavigationViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,8 +20,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    XYSTabBarViewController *tabbarVC = [[XYSTabBarViewController alloc] init];
-    self.window.rootViewController = tabbarVC;
+    XYSLoginViewController *loginVC = [[XYSLoginViewController alloc] init];
+    loginVC.userPlace = @"请输入学号";
+    loginVC.keyPlace = @"请输入密码";
+    loginVC.buttonPlace = @"登陆";
+    loginVC.isCET = NO;
+    XYSNavigationViewController *navc = [[XYSNavigationViewController alloc] initWithRootViewController:loginVC];
+    self.window.rootViewController = navc;
     
     [self.window makeKeyWindow];
     

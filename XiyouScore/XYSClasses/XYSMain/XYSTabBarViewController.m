@@ -11,6 +11,8 @@
 #import "XYSContainerController.h"
 #import "XYSUserController.h"
 #import "XYSSettingController.h"
+#import "XYSLoginViewController.h"
+#import "SVProgressHUD.h"
 
 @interface XYSTabBarViewController ()
 
@@ -26,6 +28,7 @@
 }
 
 - (void)p_setTabbar {
+    
     XYSContainerController *containerVC = [[XYSContainerController alloc] init];
     [self p_addChildViewController:containerVC normalImage:[UIImage imageNamed:@"score1"] selectImage:[UIImage imageNamed:@"score2"] title:@"成绩"];
     

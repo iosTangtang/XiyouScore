@@ -51,6 +51,7 @@
 		667B7C1A1D43B31900EB5232 /* XYSNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667B7C191D43B31900EB5232 /* XYSNavigationViewController.m */; };
 		667B7C1D1D43B35800EB5232 /* XYSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667B7C1C1D43B35800EB5232 /* XYSTabBarViewController.m */; };
 		667B7C241D43C0CC00EB5232 /* XYSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667B7C231D43C0CC00EB5232 /* XYSLoginViewController.m */; };
+		667F360A1D4517F600993A72 /* XYSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 667F36091D4517F600993A72 /* XYSTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +157,8 @@
 		667B7C1C1D43B35800EB5232 /* XYSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSTabBarViewController.m; sourceTree = "<group>"; };
 		667B7C221D43C0CC00EB5232 /* XYSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSLoginViewController.h; sourceTree = "<group>"; };
 		667B7C231D43C0CC00EB5232 /* XYSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSLoginViewController.m; sourceTree = "<group>"; };
+		667F36081D4517F600993A72 /* XYSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSTextField.h; sourceTree = "<group>"; };
+		667F36091D4517F600993A72 /* XYSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -512,6 +515,8 @@
 		667B7C201D43C0A800EB5232 /* XYSLoginView */ = {
 			isa = PBXGroup;
 			children = (
+				667F36081D4517F600993A72 /* XYSTextField.h */,
+				667F36091D4517F600993A72 /* XYSTextField.m */,
 			);
 			path = XYSLoginView;
 			sourceTree = "<group>";
@@ -716,6 +721,7 @@
 				667B7C1D1D43B35800EB5232 /* XYSTabBarViewController.m in Sources */,
 				664439171D4074EF0022D5CE /* XYSTermModel.m in Sources */,
 				664439321D40774A0022D5CE /* XYSUserMessageCell.m in Sources */,
+				667F360A1D4517F600993A72 /* XYSTextField.m in Sources */,
 				6644393B1D4077920022D5CE /* XYSCETModel.m in Sources */,
 				6644391A1D4075040022D5CE /* XYSScoreModel.m in Sources */,
 				664439551D407B8C0022D5CE /* XYSUserManager.m in Sources */,

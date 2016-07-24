@@ -10,4 +10,9 @@
 
 @interface XYSLoginViewController : UIViewController
 
+@property (nonatomic, copy) NSString    *userPlace;
+@property (nonatomic, copy) NSString    *keyPlace;
+@property (nonatomic, copy) NSString    *buttonPlace;
+@property (nonatomic, assign) BOOL      isCET;
+
 @end
