@@ -40,6 +40,8 @@ static NSString * const kYearsCell = @"kYearsCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kYearsCell forIndexPath:indexPath];
     
     cell.textLabel.text = self.years[indexPath.row];
+    cell.textLabel.textColor = [UIColor darkGrayColor];
+    cell.textLabel.font = [UIFont fontWithName:@"PingFang SC" size:17.f];
     
     return cell;
 }
