@@ -1,14 +1,14 @@
 //
-//  XYSUserMessageCell.m
+//  XYSCETTableViewCell.m
 //  XiyouScore
 //
-//  Created by Tangtang on 16/7/21.
+//  Created by Tangtang on 16/7/25.
 //  Copyright © 2016年 Tangtang. All rights reserved.
 //
 
-#import "XYSUserMessageCell.h"
+#import "XYSCETTableViewCell.h"
 
-@implementation XYSUserMessageCell
+@implementation XYSCETTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface XYSFAQCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *questionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *answerLabel;
+@property (weak, nonatomic) IBOutlet UIView *backView;
 
 @end

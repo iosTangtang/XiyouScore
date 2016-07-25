@@ -20,7 +20,14 @@
     [super viewDidLoad];
     
 //    XYSHTTPRequestSession *session = [[XYSHTTPRequestSession alloc] init];
-    NSString *url = [NSString stringWithFormat:@"http://api.map.baidu.com/telematics/v3/weather?location=xian&output=json&ak=Gi27P5bmIinr86htrjU4ESnY"];
+    NSString *url = [NSString stringWithFormat:@"http://139.129.210.109/xuptqueryscore/GetPic.jsp"];
+    XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
+    [requestManager getDataWithUrl:url WithParams:nil success:^(id dic) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"%@", dict);
+    } error:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 //    session.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
 //    NSString *path = NSHomeDirectory();
 //    
@@ -37,7 +44,7 @@
 //        NSLog(@"%@", error);
 //    }];
     
-    XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
+    
 //    [requestManager downloadFileWithUrl:url WithParams:nil progress:&progress success:^(id dic) {
 //        [progress removeObserver:self forKeyPath:@"fractionCompleted"];
 //        NSLog(@"%@", dic);
@@ -52,12 +59,7 @@
 //    } error:^(NSError *error) {
 //        NSLog(@"%@", error);
 //    }];
-    [requestManager getDataWithUrl:url WithParams:nil success:^(id dic) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"%@", dict);
-    } error:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];
+    
     
     
 //    [progress addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:NULL];

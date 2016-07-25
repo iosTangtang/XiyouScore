@@ -25,12 +25,9 @@
 		6644391A1D4075040022D5CE /* XYSScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439191D4075040022D5CE /* XYSScoreModel.m */; };
 		6644391D1D4076E00022D5CE /* XYSUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6644391C1D4076E00022D5CE /* XYSUserController.m */; };
 		664439201D4076ED0022D5CE /* XYSCETController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6644391F1D4076ED0022D5CE /* XYSCETController.m */; };
-		664439231D4076FB0022D5CE /* XYSQueryCETController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439221D4076FB0022D5CE /* XYSQueryCETController.m */; };
 		664439261D4077080022D5CE /* XYSRecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439251D4077080022D5CE /* XYSRecommendController.m */; };
 		6644392A1D4077230022D5CE /* XYSUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439281D4077230022D5CE /* XYSUserCell.m */; };
 		6644392B1D4077230022D5CE /* XYSUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 664439291D4077230022D5CE /* XYSUserCell.xib */; };
-		664439321D40774A0022D5CE /* XYSUserMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439301D40774A0022D5CE /* XYSUserMessageCell.m */; };
-		664439331D40774A0022D5CE /* XYSUserMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 664439311D40774A0022D5CE /* XYSUserMessageCell.xib */; };
 		664439371D40776C0022D5CE /* XYSRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439351D40776C0022D5CE /* XYSRecommendCell.m */; };
 		664439381D40776C0022D5CE /* XYSRecommendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 664439361D40776C0022D5CE /* XYSRecommendCell.xib */; };
 		6644393B1D4077920022D5CE /* XYSCETModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6644393A1D4077920022D5CE /* XYSCETModel.m */; };
@@ -52,6 +49,13 @@
 		667B7C1D1D43B35800EB5232 /* XYSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667B7C1C1D43B35800EB5232 /* XYSTabBarViewController.m */; };
 		667B7C241D43C0CC00EB5232 /* XYSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667B7C231D43C0CC00EB5232 /* XYSLoginViewController.m */; };
 		667F360A1D4517F600993A72 /* XYSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 667F36091D4517F600993A72 /* XYSTextField.m */; };
+		667F360E1D45E6DC00993A72 /* XYSCETTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 667F360C1D45E6DC00993A72 /* XYSCETTableViewCell.m */; };
+		667F360F1D45E6DC00993A72 /* XYSCETTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 667F360D1D45E6DC00993A72 /* XYSCETTableViewCell.xib */; };
+		667F36121D45E81200993A72 /* XYSOutWardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667F36111D45E81200993A72 /* XYSOutWardController.m */; };
+		667F36151D45F9CD00993A72 /* XYSSetHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 667F36141D45F9CD00993A72 /* XYSSetHeader.m */; };
+		667F361C1D460A4100993A72 /* XYSExitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 667F361A1D460A4100993A72 /* XYSExitCell.m */; };
+		667F361D1D460A4100993A72 /* XYSExitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 667F361B1D460A4100993A72 /* XYSExitCell.xib */; };
+		667F36201D466F2300993A72 /* XYSYearController.m in Sources */ = {isa = PBXBuildFile; fileRef = 667F361F1D466F2300993A72 /* XYSYearController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,16 +113,11 @@
 		6644391C1D4076E00022D5CE /* XYSUserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSUserController.m; sourceTree = "<group>"; };
 		6644391E1D4076ED0022D5CE /* XYSCETController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSCETController.h; sourceTree = "<group>"; };
 		6644391F1D4076ED0022D5CE /* XYSCETController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSCETController.m; sourceTree = "<group>"; };
-		664439211D4076FA0022D5CE /* XYSQueryCETController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSQueryCETController.h; sourceTree = "<group>"; };
-		664439221D4076FB0022D5CE /* XYSQueryCETController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSQueryCETController.m; sourceTree = "<group>"; };
 		664439241D4077080022D5CE /* XYSRecommendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSRecommendController.h; sourceTree = "<group>"; };
 		664439251D4077080022D5CE /* XYSRecommendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSRecommendController.m; sourceTree = "<group>"; };
 		664439271D4077230022D5CE /* XYSUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSUserCell.h; sourceTree = "<group>"; };
 		664439281D4077230022D5CE /* XYSUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSUserCell.m; sourceTree = "<group>"; };
 		664439291D4077230022D5CE /* XYSUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XYSUserCell.xib; sourceTree = "<group>"; };
-		6644392F1D40774A0022D5CE /* XYSUserMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSUserMessageCell.h; sourceTree = "<group>"; };
-		664439301D40774A0022D5CE /* XYSUserMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSUserMessageCell.m; sourceTree = "<group>"; };
-		664439311D40774A0022D5CE /* XYSUserMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XYSUserMessageCell.xib; sourceTree = "<group>"; };
 		664439341D40776C0022D5CE /* XYSRecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSRecommendCell.h; sourceTree = "<group>"; };
 		664439351D40776C0022D5CE /* XYSRecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSRecommendCell.m; sourceTree = "<group>"; };
 		664439361D40776C0022D5CE /* XYSRecommendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XYSRecommendCell.xib; sourceTree = "<group>"; };
@@ -159,6 +158,18 @@
 		667B7C231D43C0CC00EB5232 /* XYSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSLoginViewController.m; sourceTree = "<group>"; };
 		667F36081D4517F600993A72 /* XYSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSTextField.h; sourceTree = "<group>"; };
 		667F36091D4517F600993A72 /* XYSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSTextField.m; sourceTree = "<group>"; };
+		667F360B1D45E6DC00993A72 /* XYSCETTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSCETTableViewCell.h; sourceTree = "<group>"; };
+		667F360C1D45E6DC00993A72 /* XYSCETTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSCETTableViewCell.m; sourceTree = "<group>"; };
+		667F360D1D45E6DC00993A72 /* XYSCETTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XYSCETTableViewCell.xib; sourceTree = "<group>"; };
+		667F36101D45E81200993A72 /* XYSOutWardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSOutWardController.h; sourceTree = "<group>"; };
+		667F36111D45E81200993A72 /* XYSOutWardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSOutWardController.m; sourceTree = "<group>"; };
+		667F36131D45F9CD00993A72 /* XYSSetHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSSetHeader.h; sourceTree = "<group>"; };
+		667F36141D45F9CD00993A72 /* XYSSetHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSSetHeader.m; sourceTree = "<group>"; };
+		667F36191D460A4100993A72 /* XYSExitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSExitCell.h; sourceTree = "<group>"; };
+		667F361A1D460A4100993A72 /* XYSExitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSExitCell.m; sourceTree = "<group>"; };
+		667F361B1D460A4100993A72 /* XYSExitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XYSExitCell.xib; sourceTree = "<group>"; };
+		667F361E1D466F2300993A72 /* XYSYearController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSYearController.h; sourceTree = "<group>"; };
+		667F361F1D466F2300993A72 /* XYSYearController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSYearController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +370,8 @@
 				6644390B1D40747A0022D5CE /* XYSContainerController.m */,
 				664439071D40745C0022D5CE /* XYSQueryScoreController.h */,
 				664439081D40745C0022D5CE /* XYSQueryScoreController.m */,
+				667F361E1D466F2300993A72 /* XYSYearController.h */,
+				667F361F1D466F2300993A72 /* XYSYearController.m */,
 			);
 			path = XYSScoreController;
 			sourceTree = "<group>";
@@ -393,10 +406,10 @@
 				6644391C1D4076E00022D5CE /* XYSUserController.m */,
 				6644391E1D4076ED0022D5CE /* XYSCETController.h */,
 				6644391F1D4076ED0022D5CE /* XYSCETController.m */,
-				664439211D4076FA0022D5CE /* XYSQueryCETController.h */,
-				664439221D4076FB0022D5CE /* XYSQueryCETController.m */,
 				664439241D4077080022D5CE /* XYSRecommendController.h */,
 				664439251D4077080022D5CE /* XYSRecommendController.m */,
+				667F36101D45E81200993A72 /* XYSOutWardController.h */,
+				667F36111D45E81200993A72 /* XYSOutWardController.m */,
 			);
 			path = XYSUserController;
 			sourceTree = "<group>";
@@ -407,12 +420,12 @@
 				664439271D4077230022D5CE /* XYSUserCell.h */,
 				664439281D4077230022D5CE /* XYSUserCell.m */,
 				664439291D4077230022D5CE /* XYSUserCell.xib */,
-				6644392F1D40774A0022D5CE /* XYSUserMessageCell.h */,
-				664439301D40774A0022D5CE /* XYSUserMessageCell.m */,
-				664439311D40774A0022D5CE /* XYSUserMessageCell.xib */,
 				664439341D40776C0022D5CE /* XYSRecommendCell.h */,
 				664439351D40776C0022D5CE /* XYSRecommendCell.m */,
 				664439361D40776C0022D5CE /* XYSRecommendCell.xib */,
+				667F360B1D45E6DC00993A72 /* XYSCETTableViewCell.h */,
+				667F360C1D45E6DC00993A72 /* XYSCETTableViewCell.m */,
+				667F360D1D45E6DC00993A72 /* XYSCETTableViewCell.xib */,
 			);
 			path = XYSUserView;
 			sourceTree = "<group>";
@@ -449,6 +462,11 @@
 				6644394B1D407AD10022D5CE /* XYSFAQCell.h */,
 				6644394C1D407AD10022D5CE /* XYSFAQCell.m */,
 				6644394D1D407AD10022D5CE /* XYSFAQCell.xib */,
+				667F36131D45F9CD00993A72 /* XYSSetHeader.h */,
+				667F36141D45F9CD00993A72 /* XYSSetHeader.m */,
+				667F36191D460A4100993A72 /* XYSExitCell.h */,
+				667F361A1D460A4100993A72 /* XYSExitCell.m */,
+				667F361B1D460A4100993A72 /* XYSExitCell.xib */,
 			);
 			path = XYSSettingView;
 			sourceTree = "<group>";
@@ -636,13 +654,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				6644392B1D4077230022D5CE /* XYSUserCell.xib in Resources */,
-				664439331D40774A0022D5CE /* XYSUserMessageCell.xib in Resources */,
 				664439111D4074A90022D5CE /* XYSQueryScoreCell.xib in Resources */,
 				6644394F1D407AD10022D5CE /* XYSFAQCell.xib in Resources */,
+				667F360F1D45E6DC00993A72 /* XYSCETTableViewCell.xib in Resources */,
 				664438C01D406CE50022D5CE /* LaunchScreen.storyboard in Resources */,
 				664438BD1D406CE50022D5CE /* Assets.xcassets in Resources */,
 				664439381D40776C0022D5CE /* XYSRecommendCell.xib in Resources */,
 				664438BB1D406CE50022D5CE /* Main.storyboard in Resources */,
+				667F361D1D460A4100993A72 /* XYSExitCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,13 +739,14 @@
 				666E187B1D40F8BB003DBF84 /* XYSHTTPRequestSession.m in Sources */,
 				667B7C1D1D43B35800EB5232 /* XYSTabBarViewController.m in Sources */,
 				664439171D4074EF0022D5CE /* XYSTermModel.m in Sources */,
-				664439321D40774A0022D5CE /* XYSUserMessageCell.m in Sources */,
+				667F360E1D45E6DC00993A72 /* XYSCETTableViewCell.m in Sources */,
 				667F360A1D4517F600993A72 /* XYSTextField.m in Sources */,
 				6644393B1D4077920022D5CE /* XYSCETModel.m in Sources */,
 				6644391A1D4075040022D5CE /* XYSScoreModel.m in Sources */,
 				664439551D407B8C0022D5CE /* XYSUserManager.m in Sources */,
 				664439261D4077080022D5CE /* XYSRecommendController.m in Sources */,
 				664439411D407A2C0022D5CE /* XYSSettingController.m in Sources */,
+				667F36201D466F2300993A72 /* XYSYearController.m in Sources */,
 				664439441D407A3A0022D5CE /* XYSFeedBackController.m in Sources */,
 				667B7C1A1D43B31900EB5232 /* XYSNavigationViewController.m in Sources */,
 				664439471D407A4D0022D5CE /* XYSFAQController.m in Sources */,
@@ -737,16 +757,18 @@
 				664439581D407CE40022D5CE /* XYSLoadingView.m in Sources */,
 				664439521D407B0B0022D5CE /* XYSClearCacheModel.m in Sources */,
 				664439101D4074A90022D5CE /* XYSQueryScoreCell.m in Sources */,
-				664439231D4076FB0022D5CE /* XYSQueryCETController.m in Sources */,
+				667F36151D45F9CD00993A72 /* XYSSetHeader.m in Sources */,
 				666E186F1D40B8DD003DBF84 /* NSString+Hash.m in Sources */,
 				667B7C241D43C0CC00EB5232 /* XYSLoginViewController.m in Sources */,
 				6644393E1D40779D0022D5CE /* XYSUserModel.m in Sources */,
+				667F361C1D460A4100993A72 /* XYSExitCell.m in Sources */,
 				664438B21D406CE50022D5CE /* main.m in Sources */,
 				6644392A1D4077230022D5CE /* XYSUserCell.m in Sources */,
 				664439141D4074D10022D5CE /* XYSTermHeaderView.m in Sources */,
 				666E18691D409BDD003DBF84 /* Reachability.m in Sources */,
 				6644394A1D407A6D0022D5CE /* XYSAboutUSController.m in Sources */,
 				664438ED1D406DF40022D5CE /* ViewController.m in Sources */,
+				667F36121D45E81200993A72 /* XYSOutWardController.m in Sources */,
 				664439201D4076ED0022D5CE /* XYSCETController.m in Sources */,
 				664439091D40745C0022D5CE /* XYSQueryScoreController.m in Sources */,
 			);

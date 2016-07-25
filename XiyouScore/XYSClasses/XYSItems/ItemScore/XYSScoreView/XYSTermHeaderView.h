@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface XYSTermHeaderView : UITableViewHeaderFooterView
+@interface XYSTermHeaderView : UIView
+
+- (instancetype)initWithTitle:(NSString *)title WithRank:(NSString *)rank;
 
 @end

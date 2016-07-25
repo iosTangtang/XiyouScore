@@ -1,18 +1,198 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="XYSQueryScoreCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="121" id="KGk-i7-Jjw" customClass="XYSQueryScoreCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXR-xD-5yl">
+                        <rect key="frame" x="10" y="4" width="300" height="115.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C语言" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLK-iN-r3W">
+                                <rect key="frame" x="8" y="8" width="44" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="DU0-HI-Kko"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="必修课" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="taN-fr-IDC">
+                                <rect key="frame" x="253" y="8" width="39" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="sqz-OK-tUQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="计算机学院" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvK-1v-eQq">
+                                <rect key="frame" x="8" y="34" width="60" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="8Il-MO-w9x"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="卷面：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0DA-EM-iGV">
+                                <rect key="frame" x="8" y="58" width="36" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="GDb-9G-ufh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQI-nt-yn7">
+                                <rect key="frame" x="47" y="58" width="21" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Avn-ZL-hhM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="平时：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3z-hD-Z8W">
+                                <rect key="frame" x="96" y="58" width="39" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="JYE-Cz-MhS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbl-PK-NfK">
+                                <rect key="frame" x="134" y="58" width="21" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="7Vy-QC-THW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总分：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jA-CU-wCZ">
+                                <rect key="frame" x="185" y="58" width="39" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ELk-7Z-jwA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f49-xj-CHu">
+                                <rect key="frame" x="227" y="58" width="21" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="TsF-Yc-CST"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="补考：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xiw-YL-Yf6">
+                                <rect key="frame" x="8" y="87" width="39" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="yCM-kG-ckC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQw-aK-f96">
+                                <rect key="frame" x="47" y="87" width="21" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="QLz-hY-Txb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学分：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1kt-Pz-gKF">
+                                <rect key="frame" x="96" y="87" width="39" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="wyX-lG-kCR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kem-X8-eZ2">
+                                <rect key="frame" x="134" y="87" width="19.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="chf-q9-0d0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0DA-EM-iGV" firstAttribute="top" secondItem="rvK-1v-eQq" secondAttribute="bottom" constant="3" id="4LZ-jF-uz6"/>
+                            <constraint firstItem="Rbl-PK-NfK" firstAttribute="leading" secondItem="YQI-nt-yn7" secondAttribute="trailing" constant="3" id="5KQ-dr-E60"/>
+                            <constraint firstItem="xQw-aK-f96" firstAttribute="top" secondItem="YQI-nt-yn7" secondAttribute="bottom" constant="8" id="6G2-LJ-rPB"/>
+                            <constraint firstItem="YQI-nt-yn7" firstAttribute="leading" secondItem="0DA-EM-iGV" secondAttribute="trailing" constant="3" id="87G-Tl-tFS"/>
+                            <constraint firstItem="rvK-1v-eQq" firstAttribute="leading" secondItem="vXR-xD-5yl" secondAttribute="leading" constant="8" id="Azh-6i-hV2"/>
+                            <constraint firstAttribute="trailing" secondItem="taN-fr-IDC" secondAttribute="trailing" constant="8" id="ELP-BO-fx3"/>
+                            <constraint firstItem="Rbl-PK-NfK" firstAttribute="top" secondItem="vXR-xD-5yl" secondAttribute="top" constant="58" id="EV7-En-JlX"/>
+                            <constraint firstItem="8jA-CU-wCZ" firstAttribute="leading" secondItem="Rbl-PK-NfK" secondAttribute="trailing" constant="30" id="EyR-ct-LVS"/>
+                            <constraint firstItem="wLK-iN-r3W" firstAttribute="leading" secondItem="vXR-xD-5yl" secondAttribute="leading" constant="8" id="IHS-Pu-Yxl"/>
+                            <constraint firstItem="O3z-hD-Z8W" firstAttribute="leading" secondItem="YQI-nt-yn7" secondAttribute="trailing" constant="28" id="Ljm-p1-Rzb"/>
+                            <constraint firstItem="rvK-1v-eQq" firstAttribute="top" secondItem="wLK-iN-r3W" secondAttribute="bottom" constant="5" id="RK3-2O-WA5"/>
+                            <constraint firstItem="f49-xj-CHu" firstAttribute="top" secondItem="vXR-xD-5yl" secondAttribute="top" constant="58" id="TpW-rS-3jN"/>
+                            <constraint firstItem="Xiw-YL-Yf6" firstAttribute="leading" secondItem="vXR-xD-5yl" secondAttribute="leading" constant="8" id="UAj-Fz-gNK"/>
+                            <constraint firstItem="O3z-hD-Z8W" firstAttribute="top" secondItem="vXR-xD-5yl" secondAttribute="top" constant="58" id="Uab-Oh-8fh"/>
+                            <constraint firstItem="0DA-EM-iGV" firstAttribute="leading" secondItem="vXR-xD-5yl" secondAttribute="leading" constant="8" id="W5U-fk-lAd"/>
+                            <constraint firstItem="f49-xj-CHu" firstAttribute="leading" secondItem="8jA-CU-wCZ" secondAttribute="trailing" constant="3" id="Yfi-yI-p1y"/>
+                            <constraint firstItem="wLK-iN-r3W" firstAttribute="top" secondItem="vXR-xD-5yl" secondAttribute="top" constant="8" id="ZSQ-SY-Ie2"/>
+                            <constraint firstItem="taN-fr-IDC" firstAttribute="top" secondItem="vXR-xD-5yl" secondAttribute="top" constant="8" id="bUa-AT-Qrx"/>
+                            <constraint firstItem="Rbl-PK-NfK" firstAttribute="leading" secondItem="YQI-nt-yn7" secondAttribute="trailing" constant="66" id="bjR-gi-EgL"/>
+                            <constraint firstItem="YQI-nt-yn7" firstAttribute="top" secondItem="rvK-1v-eQq" secondAttribute="bottom" constant="3" id="bne-qE-l2S"/>
+                            <constraint firstItem="Kem-X8-eZ2" firstAttribute="leading" secondItem="xQw-aK-f96" secondAttribute="trailing" constant="66" id="dnz-28-hYz"/>
+                            <constraint firstItem="8jA-CU-wCZ" firstAttribute="top" secondItem="vXR-xD-5yl" secondAttribute="top" constant="58" id="dvi-7r-6GC"/>
+                            <constraint firstItem="Rbl-PK-NfK" firstAttribute="top" secondItem="vXR-xD-5yl" secondAttribute="top" constant="58" id="foN-wb-smz"/>
+                            <constraint firstItem="1kt-Pz-gKF" firstAttribute="leading" secondItem="xQw-aK-f96" secondAttribute="trailing" constant="28" id="j3W-SO-2qy"/>
+                            <constraint firstItem="xQw-aK-f96" firstAttribute="leading" secondItem="Xiw-YL-Yf6" secondAttribute="trailing" id="mEN-u7-TVs"/>
+                            <constraint firstItem="1kt-Pz-gKF" firstAttribute="top" secondItem="Rbl-PK-NfK" secondAttribute="bottom" constant="8" id="uhE-81-pmO"/>
+                            <constraint firstItem="Xiw-YL-Yf6" firstAttribute="top" secondItem="YQI-nt-yn7" secondAttribute="bottom" constant="8" id="vPm-JG-UDv"/>
+                            <constraint firstItem="Kem-X8-eZ2" firstAttribute="top" secondItem="Rbl-PK-NfK" secondAttribute="bottom" constant="8" id="wAn-EU-yZH"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="5KQ-dr-E60"/>
+                                <exclude reference="foN-wb-smz"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vXR-xD-5yl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Mtu-eg-fHh"/>
+                    <constraint firstItem="vXR-xD-5yl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="Tax-Vv-H1e"/>
+                    <constraint firstAttribute="bottom" secondItem="vXR-xD-5yl" secondAttribute="bottom" id="c2L-Kv-jMc"/>
+                    <constraint firstAttribute="trailing" secondItem="vXR-xD-5yl" secondAttribute="trailing" constant="10" id="oCs-gj-C2z"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="academy" destination="rvK-1v-eQq" id="CS1-Vx-362"/>
+                <outlet property="backView" destination="vXR-xD-5yl" id="iLh-9A-eRh"/>
+                <outlet property="courseName" destination="wLK-iN-r3W" id="a1U-Az-M2c"/>
+                <outlet property="courseType" destination="taN-fr-IDC" id="EIh-X9-UCQ"/>
+                <outlet property="credit" destination="Kem-X8-eZ2" id="U0S-gK-oQ7"/>
+                <outlet property="jmScore" destination="YQI-nt-yn7" id="JVc-Vz-JgR"/>
+                <outlet property="makeupScore" destination="xQw-aK-f96" id="GIa-6g-vFB"/>
+                <outlet property="psScore" destination="Rbl-PK-NfK" id="1gQ-JY-2U8"/>
+                <outlet property="sumScore" destination="f49-xj-CHu" id="jd2-wu-R9G"/>
+            </connections>
+            <point key="canvasLocation" x="481" y="308.5"/>
         </tableViewCell>
     </objects>
 </document>

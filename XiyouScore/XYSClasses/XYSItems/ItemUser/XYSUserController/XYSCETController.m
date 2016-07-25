@@ -7,16 +7,55 @@
 //
 
 #import "XYSCETController.h"
+#import "XYSCETTableViewCell.h"
 
-@interface XYSCETController ()
+static NSString * const kCETCell = @"kCETCell";
+
+@interface XYSCETController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView   *tableView;
+@property (nonatomic, copy)   NSArray       *titleArray;
 
 @end
 
 @implementation XYSCETController
 
+#pragma mark - lazy
+- (NSArray *)titleArray {
+    if (_titleArray == nil) {
+        _titleArray = @[@[@"姓名", @"学校", @"考试类别", @"考试时间"], @[@"总分", @"听力", @"阅读", @"写作与翻译"]];
+    }
+    return _titleArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.title = @"四六级成绩";
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self p_setupTableView];
+    
+}
+
+#pragma mark - setupTableView
+- (void)p_setupTableView {
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.sectionFooterHeight = 5.f;
+    [self.view addSubview:self.tableView];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.equalTo(self.view);
+    }];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([XYSCETTableViewCell class]) bundle:nil] forCellReuseIdentifier:kCETCell];
+    
+    //去掉底部线条
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +63,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
 }
-*/
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 4;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    XYSCETTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCETCell];
+    cell.titleLabel.text = [[self.titleArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.valueLabel.text = @"xxx";
+    
+    return cell;
+}
 
 @end

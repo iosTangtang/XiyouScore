@@ -10,4 +10,14 @@
 
 @interface XYSQueryScoreCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *courseName;
+@property (weak, nonatomic) IBOutlet UILabel *courseType;
+@property (weak, nonatomic) IBOutlet UILabel *academy;
+@property (weak, nonatomic) IBOutlet UILabel *jmScore;
+@property (weak, nonatomic) IBOutlet UILabel *psScore;
+@property (weak, nonatomic) IBOutlet UILabel *sumScore;
+@property (weak, nonatomic) IBOutlet UILabel *makeupScore;
+@property (weak, nonatomic) IBOutlet UILabel *credit;
+@property (weak, nonatomic) IBOutlet UIView *backView;
+
 @end

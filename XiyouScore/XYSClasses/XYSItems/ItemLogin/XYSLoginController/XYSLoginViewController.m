@@ -8,6 +8,7 @@
 
 #import "XYSLoginViewController.h"
 #import "XYSTabBarViewController.h"
+#import "XYSCETController.h"
 #import "XYSTextField.h"
 #import "SVProgressHUD.h"
 
@@ -25,7 +26,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"用户登陆";
     [self p_setupTextField];
     
     if (_isCET == NO) {
@@ -62,7 +62,9 @@
     lock.contentMode = UIViewContentModeCenter;
     self.password.leftView = lock;
     self.password.leftViewMode = UITextFieldViewModeAlways;
-    self.password.secureTextEntry = YES;
+    if (self.isCET == NO) {
+        self.password.secureTextEntry = YES;
+    }
     self.password.clearButtonMode = YES;
     self.password.delegate = self;
     self.password.returnKeyType = UIReturnKeyDone;
@@ -128,12 +130,21 @@
         [self.password resignFirstResponder];
         
         [SVProgressHUD showWithStatus:@"登陆中"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [SVProgressHUD dismiss];
             [self dismissViewControllerAnimated:YES completion:nil];
             XYSTabBarViewController *tabBarVC = [[XYSTabBarViewController alloc] init];
             [self presentViewController:tabBarVC animated:NO completion:nil];
         });
+    } else {
+        [SVProgressHUD showWithStatus:@"查询中"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            XYSCETController *cetVC = [[XYSCETController alloc] init];
+            cetVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:cetVC animated:YES];
+        });
+        
     }
 
 }

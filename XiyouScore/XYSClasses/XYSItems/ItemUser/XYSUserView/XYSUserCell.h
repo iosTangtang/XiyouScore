@@ -10,4 +10,10 @@
 
 @interface XYSUserCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *headImage;
+@property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *userID;
+@property (weak, nonatomic) IBOutlet UILabel *academy;
+@property (weak, nonatomic) IBOutlet UILabel *className;
+
 @end

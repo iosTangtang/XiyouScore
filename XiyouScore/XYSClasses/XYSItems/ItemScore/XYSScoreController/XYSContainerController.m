@@ -8,6 +8,7 @@
 
 #import "XYSContainerController.h"
 #import "XYSQueryScoreController.h"
+#import "XYSYearController.h"
 
 #define SVXButtonUnSelColor [UIColor grayColor]
 #define SVXButtonSelColor   [UIColor colorWithRed:61 / 255.0 green:118 / 255.0 blue:203 / 255.0 alpha:1]
@@ -18,7 +19,7 @@ static CGFloat const kMaxScale = 1.1;
 //static int const kButtonWidth = ;
 static int const kLineWidth = 60;
 
-@interface XYSContainerController ()<UIScrollViewDelegate> {
+@interface XYSContainerController ()<UIScrollViewDelegate, UIPopoverPresentationControllerDelegate> {
     UIView      *_preView;
     NSUInteger  _currentX;
 }
@@ -36,9 +37,20 @@ static int const kLineWidth = 60;
 
 @property (nonatomic, strong) NSMutableDictionary         *lineWidthCache;
 
+@property (nonatomic, strong) UIButton      *yearButton;
+@property (nonatomic, strong) UIPopoverPresentationController   *popVC;
+@property (nonatomic, copy)   NSArray       *yearArray;
+
 @end
 
 @implementation XYSContainerController
+
+- (NSArray *)yearArray {
+    if (_yearArray == nil) {
+        _yearArray = @[@"2011~2012", @"2012~2013", @"2013~2014", @"2014~2015"];
+    }
+    return _yearArray;
+}
 
 - (NSMutableArray <UIButton *> *)titleButtons {
     if (_titleButtons == nil) {
@@ -67,11 +79,19 @@ static int const kLineWidth = 60;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeYearButton:) name:XYSCHANGEYEARNOTIFI object:nil];
+    
     [self p_setupTitleScroller];
     [self p_setupContainScroller];
     [self p_setupChildViewController];
     [self p_setupTitle];
+    
+    [self p_setupNavigationItem];
 
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -85,6 +105,19 @@ static int const kLineWidth = 60;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - setupNavigation
+- (void)p_setupNavigationItem {
+    self.yearButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.yearButton.frame = CGRectMake(0, 0, 200, 44);
+    [self.yearButton setTitle:@"选择学年" forState:UIControlStateNormal];
+    [self.yearButton setTintColor:[UIColor whiteColor]];
+    self.yearButton.titleLabel.font = [UIFont fontWithName:@"PingFang SC" size:17.f];
+    
+    [self.yearButton addTarget:self action:@selector(yearButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.titleView = self.yearButton;
 }
 
 #pragma mark - 设置头部标题栏
@@ -320,7 +353,35 @@ static int const kLineWidth = 60;
     
     leftButton.transform = CGAffineTransformMakeScale(leftScale * transScale + 1, leftScale * transScale + 1);
     rightButton.transform = CGAffineTransformMakeScale(rightScale * transScale + 1, rightScale * transScale + 1);
+}
+
+#pragma mark - yearButtonAction
+- (void)yearButtonAction:(UIButton *)sender {
+    XYSYearController *year = [[XYSYearController alloc] init];
+    year.years = self.yearArray;
+    year.preferredContentSize = CGSizeMake(120, 176);
+    year.modalPresentationStyle = UIModalPresentationPopover;
     
+    self.popVC = year.popoverPresentationController;
+    self.popVC.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    self.popVC.sourceView = self.view;
+    self.popVC.backgroundColor = [UIColor whiteColor];
+    self.popVC.delegate = self;
+    self.popVC.sourceRect = CGRectMake(self.view.frame.size.width / 2.0, 0, 0, 0);
+    
+    [self presentViewController:year animated:YES completion:nil];
+}
+
+#pragma mark - NSNotification
+- (void)changeYearButton:(id)sender {
+    [self.yearButton setTitle:[[sender userInfo] objectForKey:@"title"] forState:UIControlStateNormal];
+    self.yearButton.titleLabel.font = [UIFont fontWithName:@"PingFang SC" size:17.f];
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    
+    return UIModalPresentationNone;
 }
 
 @end
