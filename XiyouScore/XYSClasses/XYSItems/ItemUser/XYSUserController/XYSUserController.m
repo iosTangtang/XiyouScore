@@ -9,6 +9,7 @@
 #import "XYSUserController.h"
 #import "XYSLoginViewController.h"
 #import "XYSRecommendController.h"
+#import "XYSOutWardController.h"
 #import "XYSUserCell.h"
 
 static NSString * const kUserHeadCell = @"kUserHeadCell";
@@ -130,6 +131,11 @@ static NSString * const kUserCell     = @"kUserCell";
             loginVC.isCET = YES;
             loginVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:loginVC animated:YES];
+        } else if (indexPath.row == 1) {
+            XYSOutWardController *outwardVC = [[XYSOutWardController alloc] init];
+            outwardVC.hidesBottomBarWhenPushed = YES;
+            outwardVC.title = @"素质拓展查询";
+            [self.navigationController pushViewController:outwardVC animated:YES];
         } else if (indexPath.row == 2) {
             XYSRecommendController *recommendVC = [[XYSRecommendController alloc] init];
             recommendVC.hidesBottomBarWhenPushed = YES;

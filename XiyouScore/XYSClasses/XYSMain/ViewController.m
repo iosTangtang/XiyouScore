@@ -20,9 +20,9 @@
     [super viewDidLoad];
     
 //    XYSHTTPRequestSession *session = [[XYSHTTPRequestSession alloc] init];
-    NSString *url = [NSString stringWithFormat:@"http://139.129.210.109/xuptqueryscore/GetPic.jsp"];
+    NSString *url = [NSString stringWithFormat:@"http://139.129.210.109/xuptqueryscore/login.jsp"];
     XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
-    [requestManager getDataWithUrl:url WithParams:nil success:^(id dic) {
+    [requestManager postDataWithUrl:url WithParams:@{@"username" : @"04143031", @"password" : @"tn96.0", @"session" : @""} success:^(id dic) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"%@", dict);
     } error:^(NSError *error) {
