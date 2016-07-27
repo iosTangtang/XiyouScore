@@ -23,10 +23,7 @@ static NSString * const kRecomCell = @"kRecomCell";
 - (NSArray *)messArray {
     if (_messArray == nil) {
         _messArray = @[@{@"headImage" : [UIImage imageNamed:@"liblogo"], @"titleName" : @"西邮图书馆-iOS版",
-                         @"moreLabel" : @" 一款高效的移动图书管理App。\n 随时随地续借图书，快来下载吧~"},
-                       @{@"headImage" : [UIImage imageNamed:@"liblogo"], @"titleName" : @"西邮图书馆-iOS版",
-                         @"moreLabel" : @" 一款高效的移动图书管理App。\n 随时随地续借图书，快来下载吧~"}
-                       ];
+                         @"moreLabel" : @" 一款高效的移动图书管理App。\n 随时随地续借图书，快来下载吧~", @"downURL" : @"https://appsto.re/cn/-t3p_.i"}];
     }
     return _messArray;
 }
@@ -70,7 +67,7 @@ static NSString * const kRecomCell = @"kRecomCell";
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return self.messArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -85,6 +82,7 @@ static NSString * const kRecomCell = @"kRecomCell";
     cell.titleImage = [dic objectForKey:@"headImage"];
     cell.titleLabel.text = [dic objectForKey:@"titleName"];
     cell.moreLabel.text = [dic objectForKey:@"moreLabel"];
+    cell.downButton.tag = indexPath.section;
     
     cell.backView.layer.shadowOffset = CGSizeMake(1, 1);
     cell.backView.layer.shadowOpacity = 0.3;
@@ -97,7 +95,9 @@ static NSString * const kRecomCell = @"kRecomCell";
 
 #pragma mark - XYSButtonActionDelegate
 - (void)recomButtonAction:(UIButton *)sender {
-    NSLog(@"downLoad");
+    NSDictionary *dic = self.messArray[sender.tag];
+    NSString *url = [dic objectForKey:@"downURL"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
 @end

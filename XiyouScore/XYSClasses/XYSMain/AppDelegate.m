@@ -19,17 +19,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    XYSLoginViewController *loginVC = [[XYSLoginViewController alloc] init];
-    loginVC.title = @"用户登陆";
-    loginVC.userPlace = @"请输入学号";
-    loginVC.keyPlace = @"请输入密码";
-    loginVC.buttonPlace = @"登陆";
-    loginVC.isCET = NO;
-    XYSNavigationViewController *navc = [[XYSNavigationViewController alloc] initWithRootViewController:loginVC];
-    self.window.rootViewController = navc;
-    
-    [self.window makeKeyWindow];
+//    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    XYSLoginViewController *loginVC = [[XYSLoginViewController alloc] init];
+//    loginVC.title = @"用户登陆";
+//    loginVC.userPlace = @"请输入学号";
+//    loginVC.keyPlace = @"请输入密码";
+//    loginVC.buttonPlace = @"登陆";
+//    loginVC.isCET = NO;
+//    XYSNavigationViewController *navc = [[XYSNavigationViewController alloc] initWithRootViewController:loginVC];
+//    self.window.rootViewController = navc;
+//    
+//    [self.window makeKeyWindow];
     
     return YES;
 }

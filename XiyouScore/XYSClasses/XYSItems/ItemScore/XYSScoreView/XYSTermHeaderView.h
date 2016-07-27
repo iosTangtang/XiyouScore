@@ -10,6 +10,7 @@
 
 @interface XYSTermHeaderView : UIView
 
+- (instancetype)initWithTitle:(NSString *)title;
 - (instancetype)initWithTitle:(NSString *)title WithRank:(NSString *)rank;
 
 @end

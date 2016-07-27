@@ -9,7 +9,7 @@
 #import "XYSOutWardController.h"
 #import "SVProgressHUD.h"
 
-#define URLSTR @"http://www.jianshu.com"
+#define URLSTR @"http://222.24.19.201/default4.aspx"
 
 @interface XYSOutWardController ()<UIWebViewDelegate>
 
@@ -63,7 +63,7 @@
 
 - (void)p_setupToolBar {
     UIView *toolView = [[UIView alloc] init];
-    toolView.backgroundColor = [UIColor colorWithRed:61 / 255.0 green:118 / 255.0 blue:203 / 255.0 alpha:0.5];
+    toolView.backgroundColor = [UIColor colorWithRed:61 / 255.0 green:118 / 255.0 blue:203 / 255.0 alpha:1];
     [self.view addSubview:toolView];
     
     [toolView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,7 +72,7 @@
     }];
     
     self.goBack = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.goBack setBackgroundImage:[UIImage imageNamed:@"fa-angle-left"] forState:UIControlStateNormal];
+    [self.goBack setBackgroundImage:[UIImage imageNamed:@"goBack"] forState:UIControlStateNormal];
     [self.goBack addTarget:self action:@selector(goBackAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.goBack];
     
@@ -89,7 +89,7 @@
     }
     
     self.goForward = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.goForward setBackgroundImage:[UIImage imageNamed:@"fa-angle-right"] forState:UIControlStateNormal];
+    [self.goForward setBackgroundImage:[UIImage imageNamed:@"goForward"] forState:UIControlStateNormal];
     [self.goForward addTarget:self action:@selector(goForwardAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.goForward];
     
@@ -106,19 +106,19 @@
     }
     
     self.reload = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.reload setBackgroundImage:[UIImage imageNamed:@"fa-refresh"] forState:UIControlStateNormal];
+    [self.reload setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     [self.reload addTarget:self action:@selector(reloadAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.reload];
     
     [self.reload mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(25);
-        make.height.equalTo(25);
+        make.width.equalTo(26);
+        make.height.equalTo(26);
         make.centerY.equalTo(toolView.centerY);
         make.right.equalTo(toolView.right).offset(-30);
     }];
     
     self.gotoSafari = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.gotoSafari setBackgroundImage:[UIImage imageNamed:@"fa-compass"] forState:UIControlStateNormal];
+    [self.gotoSafari setBackgroundImage:[UIImage imageNamed:@"safari"] forState:UIControlStateNormal];
     [self.gotoSafari addTarget:self action:@selector(gotoSafariAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.gotoSafari];
     
@@ -156,12 +156,12 @@
         self.goForward.enabled = YES;
     }
     
-    [self.reload setBackgroundImage:[UIImage imageNamed:@"fa-refresh"] forState:UIControlStateNormal];
+    [self.reload setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error {
     NSLog(@"%@", error);
-    [self.reload setBackgroundImage:[UIImage imageNamed:@"fa-refresh"] forState:UIControlStateNormal];
+    [self.reload setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
 }
 
 #pragma mark - ButtonAction
@@ -177,7 +177,7 @@
     NSLog(@"%d", self.webView.isLoading);
     if (self.webView.isLoading == YES) {
         [self.webView stopLoading];
-        [sender setBackgroundImage:[UIImage imageNamed:@"fa-refresh"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
     } else {
         [self.webView reload];
         [sender setBackgroundImage:[UIImage imageNamed:@"unLoad"] forState:UIControlStateNormal];

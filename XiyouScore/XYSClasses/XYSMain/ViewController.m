@@ -10,7 +10,16 @@
 #import "XYSHTTPRequestSession.h"
 #import "XYSHTTPRequestManager.h"
 
+#define MAX_REQUEST 3
+
 @interface ViewController ()
+
+@property (nonatomic, copy) NSString *userName;
+@property (nonatomic, copy) NSString *passWord;
+@property (nonatomic, copy) NSDictionary *diction1;
+@property (nonatomic, copy) NSDictionary *diction2;
+@property (nonatomic, copy) NSData  *data;
+@property (nonatomic, assign) NSInteger count;
 
 @end
 
@@ -18,51 +27,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.count = 0;
     
-//    XYSHTTPRequestSession *session = [[XYSHTTPRequestSession alloc] init];
-    NSString *url = [NSString stringWithFormat:@"http://139.129.210.109/xuptqueryscore/login.jsp"];
+    self.userName = @"04143031";
+    self.passWord = @"tn96.0";
+    
+    __weak typeof(self) weakSelf = self;
+    
+    NSString *url = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/users/login"];
     XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
-    [requestManager postDataWithUrl:url WithParams:@{@"username" : @"04143031", @"password" : @"tn96.0", @"session" : @""} success:^(id dic) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableContainers error:nil];
+    [requestManager postDataWithUrl:url WithParams:@{@"username" : self.userName, @"password" : self.passWord} success:^(id dic) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
         NSLog(@"%@", dict);
+        NSDictionary *sessionDic = dict[@"result"];
+        NSString *session = sessionDic[@"session"];
+        [weakSelf webRequest:session];
+        
     } error:^(NSError *error) {
         NSLog(@"%@", error);
     }];
-//    session.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-//    NSString *path = NSHomeDirectory();
-//    
-//    NSString *cacheDiretory= [path stringByAppendingPathComponent:@"Library/Caches/"];
-//    
-//    cacheDiretory = [cacheDiretory stringByAppendingPathComponent:@"webCache"];
-    
-//    NSProgress *progress = nil;
-    
-//    [session downLoadFile:url WithParams:nil fileDownPath:cacheDiretory  progress:&progress success:^(id dic) {
-//        [progress removeObserver:self forKeyPath:@"fractionCompleted"];
-//        NSLog(@"%@",dic);
-//    } error:^(NSError *error) {
-//        NSLog(@"%@", error);
-//    }];
-    
-    
-//    [requestManager downloadFileWithUrl:url WithParams:nil progress:&progress success:^(id dic) {
-//        [progress removeObserver:self forKeyPath:@"fractionCompleted"];
-//        NSLog(@"%@", dic);
-//    } error:^(NSError *error) {
-//        NSLog(@"%@", error);
-//    }];
-    
-//    [requestManager postDataWithUrl:url WithParams:nil success:^(id dic) {
-//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
-//        NSLog(@"%@", dict);
-//        
-//    } error:^(NSError *error) {
-//        NSLog(@"%@", error);
-//    }];
-    
-    
-    
-//    [progress addObserver:self forKeyPath:@"fractionCompleted" options:NSKeyValueObservingOptionNew context:NULL];
     
 }
 
@@ -78,6 +61,52 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)webRequest:(NSString *)session {
+    XYSHTTPRequestManager *request = [XYSHTTPRequestManager createInstance];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    NSString *url1 = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/users/info"];
+    [request postDataWithUrl:url1 WithParams:@{@"username" : weakSelf.userName, @"password" : weakSelf.passWord, @"session" : session} success:^(id dic) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
+//        NSLog(@"11111111----%@", dict);
+        weakSelf.diction1 = dict;
+        [weakSelf endRequest];
+    } error:^(NSError *error) {
+        NSLog(@"11111111----%@", error);
+    }];
+    
+    NSString *url2 = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/score/all"];
+    [request postDataWithUrl:url2 WithParams:@{@"username" : weakSelf.userName, @"session" : session} success:^(id dic) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
+//        NSLog(@"22222222----%@", dict);
+        weakSelf.diction2 = dict;
+        [weakSelf endRequest];
+    } error:^(NSError *error) {
+        NSLog(@"22222222----%@", error);
+    }];
+    
+    NSString *url = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/users/img"];
+    [request postDataWithUrl:url WithParams:@{@"username" : weakSelf.userName, @"session" : session} success:^(id dic) {
+//            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
+//        NSLog(@"33333333----%@", dic);
+        weakSelf.data = dic;
+        [weakSelf endRequest];
+    } error:^(NSError *error) {
+        NSLog(@"33333333----%@", error);
+    }];
+}
+
+- (void)endRequest {
+    self.count++;
+    if (self.count == MAX_REQUEST) {
+        NSLog(@"end");
+        NSLog(@"%@", self.diction1);
+        NSLog(@"%@", self.diction2);
+        NSLog(@"%ld", [self.data length]);
+    }
 }
 
 @end

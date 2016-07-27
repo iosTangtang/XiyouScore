@@ -17,7 +17,6 @@
 #define KHEADWIDTH 60
 
 static NSString * const kQueryScoreCell = @"kQueryScoreCell";
-static NSString * const kRankCell = @"kRankCell";
 
 @interface XYSQueryScoreController ()<UITableViewDelegate, UITableViewDataSource> {
     NSMutableDictionary *_showDic;
@@ -48,6 +47,8 @@ static NSString * const kRankCell = @"kRankCell";
     
     [self p_setupTableView];
     
+    NSLog(@"%@", self.title);
+    
 }
 
 - (void)dealloc {
@@ -65,11 +66,11 @@ static NSString * const kRankCell = @"kRankCell";
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view.bottom).offset(-44);
+        make.bottom.equalTo(self.view.bottom).offset(-49);
     }];
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([XYSQueryScoreCell class]) bundle:nil] forCellReuseIdentifier:kQueryScoreCell];
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([XYSExitCell class]) bundle:nil] forCellReuseIdentifier:kRankCell];
+//    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([XYSExitCell class]) bundle:nil] forCellReuseIdentifier:kRankCell];
     
     //去掉底部线条
     self.tableView.tableFooterView = [[UIView alloc] init];
