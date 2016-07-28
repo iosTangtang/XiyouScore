@@ -10,4 +10,14 @@
 
 @implementation XYSTermModel
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _scoresTermOne = [NSMutableArray array];
+        _scoresTermTwo = [NSMutableArray array];
+    }
+    return self;
+}
+
 @end

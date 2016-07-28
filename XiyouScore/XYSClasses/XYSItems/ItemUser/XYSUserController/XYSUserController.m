@@ -10,7 +10,10 @@
 #import "XYSLoginViewController.h"
 #import "XYSRecommendController.h"
 #import "XYSOutWardController.h"
+#import "XYSUserModel.h"
 #import "XYSUserCell.h"
+#import "XYSHTTPRequestManager.h"
+#import "SVProgressHUD.h"
 
 static NSString * const kUserHeadCell = @"kUserHeadCell";
 static NSString * const kUserCell     = @"kUserCell";
@@ -20,6 +23,8 @@ static NSString * const kUserCell     = @"kUserCell";
 @property (nonatomic, strong) UITableView   *tableView;
 @property (nonatomic, copy)   NSArray       *titleArray;
 @property (nonatomic, copy)   NSArray       *imageArray;
+@property (nonatomic, strong) XYSUserModel  *userModel;
+@property (nonatomic, assign) BOOL          isSucceed;
 
 @end
 
@@ -41,13 +46,28 @@ static NSString * const kUserCell     = @"kUserCell";
     
 }
 
+- (XYSUserModel *)userModel {
+    if (_userModel == nil) {
+        _userModel = [[XYSUserModel alloc] init];
+    }
+    return _userModel;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self p_setupTableView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupModel:) name:XYS_USER_DATA object:nil];
     
+    self.isSucceed = NO;
+    [self p_setupTableView];
+    [self p_startRequest];
+    
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - setupTableView
@@ -68,6 +88,42 @@ static NSString * const kUserCell     = @"kUserCell";
     
     //去掉底部线条
     self.tableView.tableFooterView = [[UIView alloc] init];
+}
+
+- (void)p_startRequest {
+    
+    XYSHTTPRequestManager *request = [XYSHTTPRequestManager createInstance];
+    
+    NSString *session = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionKey"];
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"passWord"];
+    __weak typeof(self) weakSelf = self;
+    
+    NSString *url1 = [NSString stringWithFormat:@"%@%@", XYS_IP, @"/users/info"];
+    [request postDataWithUrl:url1 WithParams:@{@"username" : username, @"password" : password, @"session" : session} success:^(id dic) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
+        NSString *error = [dict objectForKey:@"error"];
+        if ([error boolValue] == 0) {
+            NSDictionary *userInfo = dict[@"result"];
+            weakSelf.userModel.className = userInfo[@"class"];
+            weakSelf.userModel.academy = userInfo[@"college"];
+            weakSelf.userModel.name = userInfo[@"name"];
+            weakSelf.userModel.studentID = userInfo[@"username"];
+        }
+        
+        //加载头像
+        NSString *url = [NSString stringWithFormat:@"%@%@", XYS_IP, @"/users/img"];
+        [request postDataWithUrl:url WithParams:@{@"username" : username, @"session" : session} success:^(id dic) {
+            weakSelf.userModel.headImageData = dic;
+            [weakSelf.tableView reloadData];
+            weakSelf.isSucceed = YES;
+        } error:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"网络异常"];
+        }];
+        
+    } error:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"网络异常"];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,11 +148,15 @@ static NSString * const kUserCell     = @"kUserCell";
     
     if (indexPath.section == 0) {
         XYSUserCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserHeadCell];
-        cell.headImage.image = [UIImage imageNamed:@"touxian"];
-        cell.userName.text = @"唐年";
-        cell.userID.text = @"04143031";
-        cell.academy.text = @"计算机学院";
-        cell.className.text = @"软件1401";
+        if (self.userModel.headImageData == nil) {
+            cell.headImage.image = [UIImage imageNamed:@"image"];
+        } else {
+            cell.headImage.image = [UIImage imageWithData:self.userModel.headImageData];
+        }
+        cell.userName.text = self.userModel.name;
+        cell.userID.text = self.userModel.studentID;
+        cell.academy.text = self.userModel.academy;
+        cell.className.text = self.userModel.className;
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserCell];
@@ -120,8 +180,11 @@ static NSString * const kUserCell     = @"kUserCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+        if (self.isSucceed == NO) {
+            [self p_startRequest];
+        }
+    }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             XYSLoginViewController *loginVC = [[XYSLoginViewController alloc] init];
             loginVC.title = @"四六级查询";
@@ -142,6 +205,11 @@ static NSString * const kUserCell     = @"kUserCell";
             [self.navigationController pushViewController:recommendVC animated:YES];
         }
     }
+}
+
+- (void)setupModel:(id)sender {
+    self.isSucceed = NO;
+    [self p_startRequest];
 }
 
 

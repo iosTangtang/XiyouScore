@@ -16,12 +16,35 @@
 
 @interface XYSTabBarViewController ()
 
+@property (nonatomic, assign) BOOL isOnline;
+
 @end
 
 @implementation XYSTabBarViewController
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (self.isOnline == NO) {
+        XYSLoginViewController *loginVC = [[XYSLoginViewController alloc] init];
+        loginVC.title = @"用户登陆";
+        loginVC.userPlace = @"请输入学号";
+        loginVC.keyPlace = @"请输入密码";
+        loginVC.buttonPlace = @"登陆";
+        loginVC.isCET = NO;
+        XYSNavigationViewController *navc = [[XYSNavigationViewController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:navc animated:NO completion:nil];
+        
+        self.isOnline = YES;
+    }
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unLogin) name:@"XYSUNLOGIN" object:nil];
+    self.isOnline = NO;
     
     [self p_setTabbar];
     
@@ -37,6 +60,7 @@
     
     XYSSettingController *setVC = [[XYSSettingController alloc] init];
     [self p_addChildViewController:setVC normalImage:[UIImage imageNamed:@"setting1"] selectImage:[UIImage imageNamed:@"setting2"] title:@"设置"];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,6 +88,19 @@
     
     
     [self addChildViewController: nav];
+}
+
+- (void)unLogin {
+    self.selectedIndex = 0;
+    
+    XYSLoginViewController *loginVC = [[XYSLoginViewController alloc] init];
+    loginVC.title = @"用户登陆";
+    loginVC.userPlace = @"请输入学号";
+    loginVC.keyPlace = @"请输入密码";
+    loginVC.buttonPlace = @"登陆";
+    loginVC.isCET = NO;
+    XYSNavigationViewController *navc = [[XYSNavigationViewController alloc] initWithRootViewController:loginVC];
+    [self presentViewController:navc animated:NO completion:nil];
 }
 
 

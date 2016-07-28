@@ -9,14 +9,15 @@
 #import "XYSContainerController.h"
 #import "XYSQueryScoreController.h"
 #import "XYSYearController.h"
+#import "XYSTermModel.h"
+#import "XYSScoreModel.h"
 
 #define SVXButtonUnSelColor [UIColor grayColor]
 #define SVXButtonSelColor   [UIColor colorWithRed:61 / 255.0 green:118 / 255.0 blue:203 / 255.0 alpha:1]
-#define kButtonWidth        [UIScreen mainScreen].bounds.size.width / 4
+#define kButtonWidth        [UIScreen mainScreen].bounds.size.width / 3
 
 static CGFloat const kSVXTitleH = 44;
 static CGFloat const kMaxScale = 1.1;
-//static int const kButtonWidth = ;
 static int const kLineWidth = 60;
 
 @interface XYSContainerController ()<UIScrollViewDelegate, UIPopoverPresentationControllerDelegate> {
@@ -39,17 +40,25 @@ static int const kLineWidth = 60;
 
 @property (nonatomic, strong) UIButton      *yearButton;
 @property (nonatomic, strong) UIPopoverPresentationController   *popVC;
-@property (nonatomic, copy)   NSArray       *yearArray;
+@property (nonatomic, copy)   NSMutableArray       *yearArray;
+@property (nonatomic, copy)   NSMutableArray       *terms;
 
 @end
 
 @implementation XYSContainerController
 
-- (NSArray *)yearArray {
+- (NSMutableArray *)yearArray {
     if (_yearArray == nil) {
-        _yearArray = @[@"2011~2012", @"2012~2013", @"2013~2014", @"2014~2015"];
+        _yearArray = [NSMutableArray array];
     }
     return _yearArray;
+}
+
+- (NSMutableArray *)terms {
+    if (_terms == nil) {
+        _terms = [NSMutableArray array];
+    }
+    return _terms;
 }
 
 - (NSMutableArray <UIButton *> *)titleButtons {
@@ -80,6 +89,7 @@ static int const kLineWidth = 60;
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeYearButton:) name:XYSCHANGEYEARNOTIFI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupModel:) name:XYS_SCORE_DATA object:nil];
     
     [self p_setupTitleScroller];
     [self p_setupContainScroller];
@@ -167,10 +177,6 @@ static int const kLineWidth = 60;
     XYSQueryScoreController *noPassVC = [[XYSQueryScoreController alloc] init];
     noPassVC.title = @"未通过";
     [self addChildViewController:noPassVC];
-    
-    XYSQueryScoreController *makeupVC = [[XYSQueryScoreController alloc] init];
-    makeupVC.title = @"补考成绩";
-    [self addChildViewController:makeupVC];
     
     //添加4个占位View
     UIView *tempView = nil;
@@ -359,7 +365,7 @@ static int const kLineWidth = 60;
 - (void)yearButtonAction:(UIButton *)sender {
     XYSYearController *year = [[XYSYearController alloc] init];
     year.years = self.yearArray;
-    year.preferredContentSize = CGSizeMake(120, 176);
+    year.preferredContentSize = CGSizeMake(120, self.yearArray.count * 44);
     year.modalPresentationStyle = UIModalPresentationPopover;
     
     self.popVC = year.popoverPresentationController;
@@ -376,11 +382,62 @@ static int const kLineWidth = 60;
 - (void)changeYearButton:(id)sender {
     [self.yearButton setTitle:[[sender userInfo] objectForKey:@"title"] forState:UIControlStateNormal];
     self.yearButton.titleLabel.font = [UIFont fontWithName:@"PingFang SC" size:17.f];
+    
+    for (XYSQueryScoreController *scoreVC in self.childViewControllers) {
+        scoreVC.yearStr = [[sender userInfo] objectForKey:@"title"];
+    }
+    
 }
+
+- (void)setupModel:(id)sender {
+    [self.yearButton setTitle:@"选择学年" forState:UIControlStateNormal];
+    
+    NSDictionary *dic = [sender userInfo];
+    NSDictionary *result = dic[@"result"];
+    
+    NSArray *score = result[@"score"];
+    
+    [self.yearArray removeAllObjects];
+    for (NSDictionary *obj in score) {
+        [self.yearArray addObject:[obj objectForKey:@"year"]];
+        XYSTermModel *termModel = [[XYSTermModel alloc] init];
+        termModel.year = obj[@"year"];
+        NSArray *termArray = obj[@"Terms"];
+        NSDictionary *termOne = termArray[0];
+        NSDictionary *termTwo = termArray[1];
+        termModel.scoresTermOne = [self getTermsScore:termOne];
+        termModel.scoresTermTwo = [self getTermsScore:termTwo];
+        [self.terms addObject:termModel];
+    }
+    
+    for (XYSQueryScoreController *scoreVC in self.childViewControllers) {
+        scoreVC.yearStr = @"";
+        scoreVC.yearArray = self.terms;
+    }
+}
+
+- (NSMutableArray *)getTermsScore:(NSDictionary *)dic {
+    NSMutableArray *array = [NSMutableArray array];
+    NSArray *scores = dic[@"Scores"];
+    for (NSDictionary *scoreDic in scores) {
+        XYSScoreModel *scoreModel = [[XYSScoreModel alloc] init];
+        scoreModel.score = scoreDic[@"EndScore"];
+        scoreModel.credit = scoreDic[@"Credit"];
+        scoreModel.regularGrade = scoreDic[@"UsualScore"];
+        scoreModel.volumeGrade = scoreDic[@"RealScore"];
+        scoreModel.academy = scoreDic[@"School"];
+        scoreModel.course = scoreDic[@"Title"];
+        scoreModel.courseQuality = scoreDic[@"Type"];
+        scoreModel.makeupScore = scoreDic[@"ReScore"];
+        scoreModel.exam = scoreDic[@"Exam"];
+        [array addObject:scoreModel];
+    }
+    return array;
+}
+
 
 #pragma mark - UIPopoverPresentationControllerDelegate
 -(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
-    
     return UIModalPresentationNone;
 }
 

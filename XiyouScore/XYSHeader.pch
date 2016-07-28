@@ -20,5 +20,10 @@
 #import "Masonry.h"
 
 #define XYSCHANGEYEARNOTIFI @"XYSCHANGEYEARNOTIFI"
+#define XYS_SCORE_DATA @"XYS_SCORE_DATA"
+#define XYS_USER_DATA @"XYS_USER_INFO"
+#define XYS_CHANGE_SCORE @"XYS_CHANGE_SCORE"
+
+#define XYS_IP  @"http://scoreapi.xiyoumobile.com"
 
 #endif /* XYSHeader_pch */

@@ -8,10 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class XYSScoreModel;
 @interface XYSTermModel : NSObject
 
-@property (nonatomic, copy)     NSString                        *year;                                  //学年
+@property (nonatomic, copy)     NSString       *year;                                  //学年
 @property (nonatomic, strong)   NSMutableArray *scoresTermOne;                         //存储该学年第一学期的成绩的数组
 @property (nonatomic, strong)   NSMutableArray *scoresTermTwo;                         //存储该学年第二学期的成绩的数组
 

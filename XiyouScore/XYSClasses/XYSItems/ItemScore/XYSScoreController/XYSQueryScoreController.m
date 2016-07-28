@@ -10,7 +10,6 @@
 #import "XYSQueryScoreCell.h"
 #import "XYSExitCell.h"
 #import "XYSTermHeaderView.h"
-#import "XYSTermModel.h"
 #import "XYSScoreModel.h"
 #import <MJRefresh/MJRefresh.h>
 
@@ -19,11 +18,12 @@
 static NSString * const kQueryScoreCell = @"kQueryScoreCell";
 
 @interface XYSQueryScoreController ()<UITableViewDelegate, UITableViewDataSource> {
-    NSMutableDictionary *_showDic;
+    
 }
 
-@property (nonatomic, strong) UITableView   *tableView;
-@property (nonatomic, strong) XYSTermModel  *termModel;
+@property (nonatomic, strong) UITableView       *tableView;
+@property (nonatomic, strong) XYSTermModel      *termModel;
+@property (nonatomic, copy) NSMutableDictionary *showDic;
 
 @end
 
@@ -33,11 +33,29 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
 - (XYSTermModel *)termModel {
     if (_termModel == nil) {
         _termModel = [[XYSTermModel alloc] init];
-        _termModel.year = @"2013-2014";
-        _termModel.scoresTermOne = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", @"1", @"2", @"3", @"1", @"2", @"3",nil];
-        _termModel.scoresTermTwo = [NSMutableArray arrayWithObjects:@"4", @"5", @"1", @"2", @"3", @"1", @"2", @"3",nil];
+        
     }
     return _termModel;
+}
+
+- (NSMutableArray *)yearArray {
+    if (_yearArray == nil) {
+        _yearArray = [NSMutableArray array];
+    }
+    return _yearArray;
+}
+
+- (NSMutableDictionary *)showDic {
+    if (_showDic == nil) {
+        _showDic = [NSMutableDictionary dictionary];
+    }
+    return _showDic;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.termModel = nil;
+    [self entityDataSource:self.title];
 }
 
 - (void)viewDidLoad {
@@ -47,12 +65,10 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
     
     [self p_setupTableView];
     
-    NSLog(@"%@", self.title);
-    
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:XYSCHANGEYEARNOTIFI object:nil];
 }
 
 #pragma mark - setupTableView
@@ -70,13 +86,14 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
     }];
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([XYSQueryScoreCell class]) bundle:nil] forCellReuseIdentifier:kQueryScoreCell];
-//    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([XYSExitCell class]) bundle:nil] forCellReuseIdentifier:kRankCell];
     
     //去掉底部线条
     self.tableView.tableFooterView = [[UIView alloc] init];
     
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(p_loadHeadData)];
-    [self.tableView.header beginRefreshing];
+    MJRefreshNormalHeader *head = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(p_loadHeadData)];
+    head.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.header = head;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -91,12 +108,12 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",section]]) {
+        if ([self.showDic objectForKey:[NSString stringWithFormat:@"%ld",section]]) {
             return self.termModel.scoresTermOne.count;
         }
         return 0;
     } else {
-        if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",section]]) {
+        if ([self.showDic objectForKey:[NSString stringWithFormat:@"%ld",section]]) {
             return self.termModel.scoresTermTwo.count;
         }
         return 0;
@@ -107,22 +124,39 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
     
     XYSQueryScoreCell *cell = [tableView dequeueReusableCellWithIdentifier:kQueryScoreCell];
     cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    NSArray *array = nil;
     if (indexPath.section == 0) {
-        cell.courseName.text = self.termModel.scoresTermOne[indexPath.row];
+        array = self.termModel.scoresTermOne;
     } else {
-        cell.courseName.text = self.termModel.scoresTermTwo[indexPath.row];
+        array = self.termModel.scoresTermTwo;
     }
+    XYSScoreModel *score = array[indexPath.row];
+    cell.courseName.text = score.course;
+    cell.academy.text = score.academy;
+    cell.courseType.text = score.courseQuality;
+    cell.jmScore.text = score.volumeGrade;
+    cell.psScore.text = score.regularGrade;
+    cell.sumScore.text = score.score;
+    cell.credit.text = score.credit;
+    cell.makeupScore.text = score.makeupScore;
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     cell.backView.layer.cornerRadius = 5.f;
     cell.backView.layer.masksToBounds = YES;
+    
+    if ([score.exam isEqualToString:@"补考未通过"]) {
+        cell.backView.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1];
+    } else {
+        cell.backView.backgroundColor = [UIColor whiteColor];
+    }
     
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([_showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
+    if ([self.showDic objectForKey:[NSString stringWithFormat:@"%ld",indexPath.section]]) {
         return 120;
     }
     return 0;
@@ -160,8 +194,8 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
 #pragma mark - 下拉刷新事件
 - (void)p_loadHeadData {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
         
+        [self.tableView reloadData];
         [self.tableView.header endRefreshing];
     });
 }
@@ -170,24 +204,74 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
 -(void)SingleTap:(UITapGestureRecognizer*)recognizer{
     NSInteger didSection = recognizer.view.tag;
     
-    if (!_showDic) {
-        _showDic = [[NSMutableDictionary alloc]init];
+    if (!self.showDic) {
+        self.showDic = [[NSMutableDictionary alloc]init];
     }
     
     NSString *key = [NSString stringWithFormat:@"%ld",didSection];
-    if (![_showDic objectForKey:key]) {
-        [_showDic setObject:@"1" forKey:key];
+    if (![self.showDic objectForKey:key]) {
+        [self.showDic setObject:@"1" forKey:key];
         
     }else{
-        [_showDic removeObjectForKey:key];
+        [self.showDic removeObjectForKey:key];
     }
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - 改变学年的监听事件
 - (void)changeYearItem:(id)sender {
-    NSLog(@"%@", [sender userInfo]);
-    [self.tableView.header beginRefreshing];
+    [self.showDic removeAllObjects];
+    NSString *year = [[sender userInfo] objectForKey:@"title"];
+    self.yearStr = year;
+    [self entityDataSource:self.title];
+}
+
+#pragma mark - 筛选成绩信息
+- (void)entityDataSource:(NSString *)value {
+    if (self.yearArray && self.yearStr) {
+        for (XYSTermModel *term in self.yearArray) {
+            XYSTermModel *tempModel = [[XYSTermModel alloc] init];
+            tempModel.year = term.year;
+            tempModel.scoresTermOne = term.scoresTermOne;
+            tempModel.scoresTermTwo = term.scoresTermTwo;
+            if ([term.year isEqualToString:self.yearStr]) {
+                if([self.title isEqualToString:@"已通过"]) {
+                    NSMutableArray *array1 = [NSMutableArray array];
+                    NSMutableArray *array2 = [NSMutableArray array];
+                    for (XYSScoreModel *score in term.scoresTermOne) {
+                        if (![score.exam isEqualToString:@"补考未通过"]) {
+                            [array1 addObject:score];
+                        }
+                    }
+                    for (XYSScoreModel *score in term.scoresTermTwo) {
+                        if (![score.exam isEqualToString:@"补考未通过"]) {
+                            [array2 addObject:score];
+                        }
+                    }
+                    tempModel.scoresTermOne = array1;
+                    tempModel.scoresTermTwo = array2;
+                } else if ([self.title isEqualToString:@"未通过"]) {
+                    NSMutableArray *array1 = [NSMutableArray array];
+                    NSMutableArray *array2 = [NSMutableArray array];
+                    for (XYSScoreModel *score in term.scoresTermOne) {
+                        if ([score.exam isEqualToString:@"补考未通过"]) {
+                            [array1 addObject:score];
+                        }
+                    }
+                    for (XYSScoreModel *score in term.scoresTermTwo) {
+                        if ([score.exam isEqualToString:@"补考未通过"]) {
+                            [array2 addObject:score];
+                        }
+                    }
+                    tempModel.scoresTermOne = array1;
+                    tempModel.scoresTermTwo = array2;
+                }
+                
+                self.termModel = tempModel;
+                [self.tableView reloadData];
+            }
+        }
+    }
 }
 
 @end

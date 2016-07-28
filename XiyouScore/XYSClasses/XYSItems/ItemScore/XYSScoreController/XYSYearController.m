@@ -16,6 +16,11 @@ static NSString * const kYearsCell = @"kYearsCell";
 
 @implementation XYSYearController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

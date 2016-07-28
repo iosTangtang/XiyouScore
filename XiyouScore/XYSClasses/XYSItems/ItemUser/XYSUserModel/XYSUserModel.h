@@ -12,7 +12,8 @@
 
 @property (nonatomic, copy) NSString    *name;                                  //名字
 @property (nonatomic, copy) NSString    *studentID;                             //学号
-@property (nonatomic, copy) NSString    *headImageUrl;                          //头像图片的url
+@property (nonatomic, copy) NSData      *headImageData;                         //头像图片的data
 @property (nonatomic, copy) NSString    *academy;                               //所属学院
+@property (nonatomic, copy) NSString    *className;                             //所属班级
 
 @end

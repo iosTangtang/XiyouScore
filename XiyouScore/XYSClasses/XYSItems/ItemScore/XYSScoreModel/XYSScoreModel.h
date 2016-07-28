@@ -10,14 +10,14 @@
 
 @interface XYSScoreModel : NSObject
 
-@property (nonatomic, copy) NSString    *term;                                      //学期
 @property (nonatomic, copy) NSString    *score;                                     //总分
-@property (nonatomic, copy) NSString    *credit;                                    //课程学分
+@property (nonatomic, copy) NSString    *credit;                                    //绩点学分
 @property (nonatomic, copy) NSString    *regularGrade;                              //平时成绩
 @property (nonatomic, copy) NSString    *volumeGrade;                               //卷面成绩
 @property (nonatomic, copy) NSString    *academy;                                   //开课学院
 @property (nonatomic, copy) NSString    *course;                                    //课程名称
 @property (nonatomic, copy) NSString    *courseQuality;                             //课程性质(必修/选修)
-@property (nonatomic, copy) NSString    *rank;                                      //排名
+@property (nonatomic, copy) NSString    *makeupScore;                               //补考成绩
+@property (nonatomic, copy) NSString    *exam;                                      //考试通过情况
 
 @end

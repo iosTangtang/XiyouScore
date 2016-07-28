@@ -10,6 +10,8 @@
 #import "XYSFeedBackController.h"
 #import "XYSFAQController.h"
 #import "XYSAboutUSController.h"
+#import "XYSLoginViewController.h"
+#import "XYSNavigationViewController.h"
 #import "XYSExitCell.h"
 #import "XYSSetHeader.h"
 
@@ -29,7 +31,7 @@ static NSString * const kExitCell = @"kExitCell";
     if (_messArray == nil) {
         _messArray = @[@{@"icon" : [UIImage imageNamed:@"advice"], @"title" : @"意见反馈"},
                        @{@"icon" : [UIImage imageNamed:@"help"], @"title" : @"常见问题"},
-                       @{@"icon" : [UIImage imageNamed:@"delete"], @"title" : @"清楚缓存"},
+                       @{@"icon" : [UIImage imageNamed:@"delete"], @"title" : @"清除缓存"},
                        @{@"icon" : [UIImage imageNamed:@"night"], @"title" : @"夜间模式"},
                        @{@"icon" : [UIImage imageNamed:@"image"], @"title" : @"关于我们"}];
     }
@@ -131,7 +133,17 @@ static NSString * const kExitCell = @"kExitCell";
             [self.navigationController pushViewController:aboutUsVC animated:YES];
         }
     } else {
-        NSLog(@"退出登陆");
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"是否退出？"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"XYSUNLOGIN" object:nil];
+        }];
+        [alert addAction:yesAction];
+        
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDestructive handler:nil];
+        [alert addAction:noAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

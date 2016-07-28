@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XYSTermModel.h"
 
 @interface XYSQueryScoreController : UIViewController
+
+@property (nonatomic, copy) NSMutableArray    *yearArray;
+@property (nonatomic, copy) NSString          *yearStr;
 
 @end
