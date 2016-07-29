@@ -155,10 +155,11 @@ static NSString * const kUserCell     = @"kUserCell";
         } else {
             cell.headImage.image = [UIImage imageWithData:self.userModel.headImageData];
         }
-        cell.userName.text = self.userModel.name;
-        cell.userID.text = self.userModel.studentID;
-        cell.academy.text = self.userModel.academy;
-        cell.className.text = self.userModel.className;
+
+        cell.userName.text = self.userModel.name == nil ? @"SomeBody" : self.userModel.name;
+        cell.userID.text = self.userModel.studentID == nil ? @"SomeThing" : self.userModel.studentID;
+        cell.academy.text = self.userModel.academy == nil ? @"SomeWhere" : self.userModel.academy;
+        cell.className.text = self.userModel.className == nil ? @"SomeWhere" : self.userModel.className;
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserCell];

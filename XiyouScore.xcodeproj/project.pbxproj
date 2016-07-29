@@ -39,8 +39,6 @@
 		6644394E1D407AD10022D5CE /* XYSFAQCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6644394C1D407AD10022D5CE /* XYSFAQCell.m */; };
 		6644394F1D407AD10022D5CE /* XYSFAQCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6644394D1D407AD10022D5CE /* XYSFAQCell.xib */; };
 		664439521D407B0B0022D5CE /* XYSClearCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439511D407B0B0022D5CE /* XYSClearCacheModel.m */; };
-		664439551D407B8C0022D5CE /* XYSUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439541D407B8C0022D5CE /* XYSUserManager.m */; };
-		664439581D407CE40022D5CE /* XYSLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 664439571D407CE40022D5CE /* XYSLoadingView.m */; };
 		666E18691D409BDD003DBF84 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E18681D409BDD003DBF84 /* Reachability.m */; };
 		666E186F1D40B8DD003DBF84 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E186E1D40B8DD003DBF84 /* NSString+Hash.m */; };
 		666E187A1D40F8BB003DBF84 /* XYSHTTPRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E18771D40F8BB003DBF84 /* XYSHTTPRequestManager.m */; };
@@ -138,10 +136,6 @@
 		6644394D1D407AD10022D5CE /* XYSFAQCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XYSFAQCell.xib; sourceTree = "<group>"; };
 		664439501D407B0B0022D5CE /* XYSClearCacheModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSClearCacheModel.h; sourceTree = "<group>"; };
 		664439511D407B0B0022D5CE /* XYSClearCacheModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSClearCacheModel.m; sourceTree = "<group>"; };
-		664439531D407B8C0022D5CE /* XYSUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSUserManager.h; sourceTree = "<group>"; };
-		664439541D407B8C0022D5CE /* XYSUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSUserManager.m; sourceTree = "<group>"; };
-		664439561D407CE40022D5CE /* XYSLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSLoadingView.h; sourceTree = "<group>"; };
-		664439571D407CE40022D5CE /* XYSLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSLoadingView.m; sourceTree = "<group>"; };
 		666E18671D409BDD003DBF84 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		666E18681D409BDD003DBF84 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		666E186D1D40B8DD003DBF84 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
@@ -317,8 +311,6 @@
 		664438E61D406DA80022D5CE /* XYSTools */ = {
 			isa = PBXGroup;
 			children = (
-				664439021D406FF20022D5CE /* XYSLoadingTool */,
-				664439011D406FE30022D5CE /* XYSSingle */,
 				664439001D406FD60022D5CE /* XYSNetworking */,
 			);
 			path = XYSTools;
@@ -491,24 +483,6 @@
 				666E18681D409BDD003DBF84 /* Reachability.m */,
 			);
 			path = XYSNetworking;
-			sourceTree = "<group>";
-		};
-		664439011D406FE30022D5CE /* XYSSingle */ = {
-			isa = PBXGroup;
-			children = (
-				664439531D407B8C0022D5CE /* XYSUserManager.h */,
-				664439541D407B8C0022D5CE /* XYSUserManager.m */,
-			);
-			path = XYSSingle;
-			sourceTree = "<group>";
-		};
-		664439021D406FF20022D5CE /* XYSLoadingTool */ = {
-			isa = PBXGroup;
-			children = (
-				664439561D407CE40022D5CE /* XYSLoadingView.h */,
-				664439571D407CE40022D5CE /* XYSLoadingView.m */,
-			);
-			path = XYSLoadingTool;
 			sourceTree = "<group>";
 		};
 		667B7C1E1D43C08300EB5232 /* ItemLogin */ = {
@@ -743,7 +717,6 @@
 				667F360A1D4517F600993A72 /* XYSTextField.m in Sources */,
 				6644393B1D4077920022D5CE /* XYSCETModel.m in Sources */,
 				6644391A1D4075040022D5CE /* XYSScoreModel.m in Sources */,
-				664439551D407B8C0022D5CE /* XYSUserManager.m in Sources */,
 				664439261D4077080022D5CE /* XYSRecommendController.m in Sources */,
 				664439411D407A2C0022D5CE /* XYSSettingController.m in Sources */,
 				667F36201D466F2300993A72 /* XYSYearController.m in Sources */,
@@ -754,7 +727,6 @@
 				666E187A1D40F8BB003DBF84 /* XYSHTTPRequestManager.m in Sources */,
 				6644394E1D407AD10022D5CE /* XYSFAQCell.m in Sources */,
 				664438EC1D406DF40022D5CE /* AppDelegate.m in Sources */,
-				664439581D407CE40022D5CE /* XYSLoadingView.m in Sources */,
 				664439521D407B0B0022D5CE /* XYSClearCacheModel.m in Sources */,
 				664439101D4074A90022D5CE /* XYSQueryScoreCell.m in Sources */,
 				667F36151D45F9CD00993A72 /* XYSSetHeader.m in Sources */,

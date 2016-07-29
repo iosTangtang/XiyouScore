@@ -11,6 +11,8 @@
 #import "XYSNavigationViewController.h"
 #import "XYSTabBarViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "AFNetworkReachabilityManager.h"
+#import "SVProgressHUD.h"
 
 @interface AppDelegate ()
 
@@ -28,6 +30,8 @@
     [self.window makeKeyWindow];
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
+    [self p_afnetworkReachabilityManager];
     
     return YES;
 }
@@ -52,6 +56,33 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void)p_afnetworkReachabilityManager {
+    //1.创建网络状态监测管理者
+    AFNetworkReachabilityManager *manger = [AFNetworkReachabilityManager sharedManager];
+    
+    //2.监听改变
+    [manger setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                NSLog(@"未知");
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                [SVProgressHUD showErrorWithStatus:@"网络异常"];
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                NSLog(@"3G|4G");
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                NSLog(@"WiFi");
+                break;
+            default:
+                break;
+        }
+    }];
+    
+    [manger startMonitoring];
 }
 
 @end

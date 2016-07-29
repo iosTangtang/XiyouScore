@@ -19,12 +19,17 @@
 
 #import "Masonry.h"
 
+//通知的键值
 #define XYSCHANGEYEARNOTIFI @"XYSCHANGEYEARNOTIFI"
 #define XYS_SCORE_DATA @"XYS_SCORE_DATA"
 #define XYS_USER_DATA @"XYS_USER_INFO"
 #define XYS_CHANGE_SCORE @"XYS_CHANGE_SCORE"
 
+//存用户密码的钥匙串的Key
 #define SAVE_NAME @"com.xiyouMobile.xiyouScore"
+
+//夜间模式的Key
+#define NIGHT_KEY @"NIGHT_KEY"
 
 #define XYS_IP  @"http://scoreapi.xiyoumobile.com"
 

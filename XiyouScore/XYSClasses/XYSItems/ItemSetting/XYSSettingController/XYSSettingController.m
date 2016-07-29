@@ -34,7 +34,6 @@ static NSString * const kExitCell = @"kExitCell";
         _messArray = @[@{@"icon" : [UIImage imageNamed:@"advice"], @"title" : @"意见反馈"},
                        @{@"icon" : [UIImage imageNamed:@"help"], @"title" : @"常见问题"},
                        @{@"icon" : [UIImage imageNamed:@"delete"], @"title" : @"清除缓存"},
-                       @{@"icon" : [UIImage imageNamed:@"night"], @"title" : @"夜间模式"},
                        @{@"icon" : [UIImage imageNamed:@"image"], @"title" : @"关于我们"}];
     }
     return _messArray;
@@ -55,7 +54,6 @@ static NSString * const kExitCell = @"kExitCell";
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.sectionFooterHeight = 5.f;
     [self.view addSubview:self.tableView];
     
@@ -98,12 +96,13 @@ static NSString * const kExitCell = @"kExitCell";
     if (indexPath.section == 0) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSetCell];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        if (indexPath.row == 3) {
-            UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
-            cell.accessoryView = switchView;
-            switchView.onTintColor = [UIColor colorWithRed:61 / 255.0 green:118 / 255.0 blue:203 / 255.0 alpha:0.8];
-            [switchView addTarget:self action:@selector(p_switchValue:) forControlEvents:UIControlEventValueChanged];
-        }
+//        if (indexPath.row == 3) {
+//            UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+//            cell.accessoryView = switchView;
+//            switchView.onTintColor = [UIColor colorWithRed:61 / 255.0 green:118 / 255.0 blue:203 / 255.0 alpha:0.8];
+//            switchView.on = [[[NSUserDefaults standardUserDefaults] objectForKey:NIGHT_KEY] boolValue];
+//            [switchView addTarget:self action:@selector(p_switchValue:) forControlEvents:UIControlEventValueChanged];
+//        }
         
         cell.imageView.image = [self.messArray[indexPath.row] objectForKey:@"icon"];
         cell.textLabel.text = [self.messArray[indexPath.row] objectForKey:@"title"];
@@ -130,7 +129,7 @@ static NSString * const kExitCell = @"kExitCell";
             [self.navigationController pushViewController:faqVC animated:YES];
         } else if (indexPath.row == 2) {
             [SVProgressHUD showSuccessWithStatus:@"清除成功"];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 3) {
             XYSAboutUSController *aboutUsVC = [[XYSAboutUSController alloc] init];
             aboutUsVC.hidesBottomBarWhenPushed = YES;
             aboutUsVC.title = [self.messArray[indexPath.row] objectForKey:@"title"];
@@ -159,8 +158,11 @@ static NSString * const kExitCell = @"kExitCell";
 }
 
 #pragma mark - SwitchAction
-- (void)p_switchValue:(UISwitch *)sender {
-    NSLog(@"%d", sender.isOn);
-}
+//- (void)p_switchValue:(UISwitch *)sender {
+//    NSLog(@"%d", sender.isOn);
+//    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", sender.isOn] forKey:NIGHT_KEY];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:NIGHT_KEY object:nil];
+//    [self.tableView reloadData];
+//}
 
 @end

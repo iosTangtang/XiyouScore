@@ -7,6 +7,7 @@
 //
 
 #import "XYSFeedBackController.h"
+#import "SVProgressHUD.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
 @interface XYSFeedBackController ()<UITextViewDelegate, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
@@ -53,7 +54,7 @@
     self.textView.font = [UIFont systemFontOfSize:14.0];
     self.textView.textColor = [UIColor lightGrayColor];
     self.textView.layer.cornerRadius = 5.f;
-    self.textView.text = @"欢迎吐槽，想喷就喷!";
+    self.textView.text = @"在这里输入反馈...";
     //自适应高度
     self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.textView];
@@ -104,7 +105,7 @@
 
 #pragma mark - UITextViewDelegate
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    if ([self.textView.text isEqualToString:@"欢迎吐槽，想喷就喷!"]) {
+    if ([self.textView.text isEqualToString:@"在这里输入反馈..."]) {
         self.textView.text = @"";
     }
     CGRect currentFrame = self.view.frame;
@@ -114,7 +115,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if (self.textView.text.length<1) {
-        self.textView.text = @"欢迎吐槽，想喷就喷!";
+        self.textView.text = @"在这里输入反馈...";
     }
     CGRect currentFrame = self.view.frame;
     currentFrame.origin.y = 64;
@@ -175,9 +176,9 @@
 
 #pragma mark 点击提交按钮事件
 - (void)sendMailButtonAction:(UIButton *)sender {
-    if ([MFMailComposeViewController canSendMail] && ![self.textView.text isEqualToString:@"欢迎吐槽，想喷就喷!"]) {
+    if ([MFMailComposeViewController canSendMail] && ![self.textView.text isEqualToString:@"在这里输入反馈..."]) {
         [self sendMail];
-    } else if ([self.textView.text isEqualToString:@"欢迎吐槽，想喷就喷!"]) {
+    } else if ([self.textView.text isEqualToString:@"在这里输入反馈..."]) {
         [self p_showMessage:@"反馈为空" isSuccees:NO];
     } else {
         [self p_showMessage:@"未检测到邮件" isSuccees:NO];
@@ -229,24 +230,11 @@
 
 #pragma mark 提示框
 - (void)p_showMessage:(NSString *)title isSuccees:(BOOL)isSucceed {
-    //    __block ASClearCacheView *cacheView = nil;
-    //    if (isSucceed) {
-    //        cacheView = [[ASClearCacheView alloc] initWithFrame:CGRectMake(0, 0, ASWidth, ASHeight - 64)
-    //                                                      Title:title
-    //                                                   ImageStr:@"fa-check"];
-    //    } else {
-    //        cacheView = [[ASClearCacheView alloc] initWithFrame:CGRectMake(0, 0, ASWidth, ASHeight - 64)
-    //                                                      Title:title
-    //                                                   ImageStr:@"fa-times"];
-    //    }
-    //
-    //    [self.view addSubview:cacheView];
-    //
-    //    //延迟去除提示
-    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //        [cacheView removeFromSuperview];
-    //        cacheView = nil;
-    //    });
+    if (isSucceed) {
+        [SVProgressHUD showSuccessWithStatus:title];
+    } else {
+        [SVProgressHUD showErrorWithStatus:title];
+    }
 }
 
 - (void)dealloc {
