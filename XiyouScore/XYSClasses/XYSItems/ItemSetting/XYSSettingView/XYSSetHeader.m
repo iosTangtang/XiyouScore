@@ -21,7 +21,7 @@
 
 - (void)p_setupHeadView {
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.image = [UIImage imageNamed:@"touxian"];
+    imageView.image = [UIImage imageNamed:@"XiyouScoreIcon"];
     imageView.layer.cornerRadius = 10;
     imageView.layer.masksToBounds = YES;
     [self addSubview:imageView];

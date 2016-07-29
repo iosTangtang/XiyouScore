@@ -324,7 +324,12 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
         scoreModel.academy = scoreDic[@"School"];
         scoreModel.course = scoreDic[@"Title"];
         scoreModel.courseQuality = scoreDic[@"Type"];
-        scoreModel.makeupScore = scoreDic[@"ReScore"];
+        if ([scoreDic[@"ReScore"] isEqualToString:@""]) {
+            scoreModel.makeupScore = @"0";
+        } else {
+            scoreModel.makeupScore = scoreDic[@"ReScore"];
+        }
+        
         scoreModel.exam = scoreDic[@"Exam"];
         [array addObject:scoreModel];
     }

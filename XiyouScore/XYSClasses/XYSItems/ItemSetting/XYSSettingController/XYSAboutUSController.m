@@ -24,7 +24,7 @@
 
 - (void)p_createIcon {
     UIImageView *iconImage = [[UIImageView alloc] init];
-    iconImage.image = [UIImage imageNamed:@"touxian"];
+    iconImage.image = [UIImage imageNamed:@"XiyouScoreIcon"];
     iconImage.layer.cornerRadius = 10;
     [self.view addSubview:iconImage];
     
