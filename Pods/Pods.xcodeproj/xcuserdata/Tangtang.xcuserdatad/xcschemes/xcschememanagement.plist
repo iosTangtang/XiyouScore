@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SFHFKeychainUtils.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,6 +42,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1791F253FE64856790EACA43E9DD1263</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1C3436CEA5C3D39764C5F54374794ECB</key>
 		<dict>
 			<key>primary</key>
@@ -47,22 +57,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8514B260A1386C7F038D0DB9D264AC6B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8CBEF0BC8891EC15B8090F5DEAB9801E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>96555C7A344C00B1452C10A708192BF2</key>
+		<key>6D8ADABBAA5F75ABAB7AB03FFE72A8CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>A9A83F63385AA43314397B8DD375464B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C0C58F1D0461C6BBBCC693768AE4C4FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E2C83E1B797C19AC1D547DDF259CEBA5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

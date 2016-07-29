@@ -10,7 +10,7 @@ target 'XiyouScore' do
 	pod 'MJRefresh', '~> 2.4.12'
 	pod 'Masonry', '~> 0.6.3'
 	pod 'SVProgressHUD', '~> 1.1.3'
-
+	pod 'SFHFKeychainUtils', '~> 0.0.1'
 end
 
 target 'XiyouScoreTests' do

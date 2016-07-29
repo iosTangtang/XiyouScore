@@ -29,19 +29,19 @@
     [super viewDidLoad];
     self.count = 0;
     
-    self.userName = @"04143031";
-    self.passWord = @"tn96.0";
+    self.userName = @"03151274";
+    self.passWord = @"FRANfulan520";
     
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     
-    NSString *url = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/users/login"];
+    NSString *url = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/score/year"];
     XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
-    [requestManager postDataWithUrl:url WithParams:@{@"username" : self.userName, @"password" : self.passWord} success:^(id dic) {
+    [requestManager postDataWithUrl:url WithParams:@{@"username" : self.userName, @"password" : self.passWord, @"session" : @"ASP.NET_SessionId=4mkhrsv2lwmmvaj515y1jj45", @"year" : @"2015-2016", @"update" : @"update"} success:^(id dic) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
         NSLog(@"%@", dict);
-        NSDictionary *sessionDic = dict[@"result"];
-        NSString *session = sessionDic[@"session"];
-        [weakSelf webRequest:session];
+//        NSDictionary *sessionDic = dict[@"result"];
+//        NSString *session = sessionDic[@"session"];
+//        [weakSelf webRequest:session];
         
     } error:^(NSError *error) {
         NSLog(@"%@", error);

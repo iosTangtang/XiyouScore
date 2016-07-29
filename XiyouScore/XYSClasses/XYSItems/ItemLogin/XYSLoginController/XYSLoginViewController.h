@@ -14,5 +14,6 @@
 @property (nonatomic, copy) NSString    *keyPlace;
 @property (nonatomic, copy) NSString    *buttonPlace;
 @property (nonatomic, assign) BOOL      isCET;
+@property (nonatomic, assign) BOOL      isAuto;
 
 @end

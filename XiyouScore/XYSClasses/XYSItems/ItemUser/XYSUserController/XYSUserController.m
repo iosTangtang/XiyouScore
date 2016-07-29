@@ -14,6 +14,7 @@
 #import "XYSUserCell.h"
 #import "XYSHTTPRequestManager.h"
 #import "SVProgressHUD.h"
+#import "SFHFKeychainUtils.h"
 
 static NSString * const kUserHeadCell = @"kUserHeadCell";
 static NSString * const kUserCell     = @"kUserCell";
@@ -91,12 +92,13 @@ static NSString * const kUserCell     = @"kUserCell";
 }
 
 - (void)p_startRequest {
+    NSError *passError;
     
     XYSHTTPRequestManager *request = [XYSHTTPRequestManager createInstance];
     
     NSString *session = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionKey"];
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"passWord"];
+    NSString *password = [SFHFKeychainUtils getPasswordForUsername:username andServiceName:SAVE_NAME error:&passError];
     __weak typeof(self) weakSelf = self;
     
     NSString *url1 = [NSString stringWithFormat:@"%@%@", XYS_IP, @"/users/info"];

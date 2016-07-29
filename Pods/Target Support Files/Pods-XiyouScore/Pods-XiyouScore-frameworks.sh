@@ -88,6 +88,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-XiyouScore/MJRefresh.framework"
   install_framework "Pods-XiyouScore/Masonry.framework"
   install_framework "Pods-XiyouScore/SDWebImage.framework"
+  install_framework "Pods-XiyouScore/SFHFKeychainUtils.framework"
   install_framework "Pods-XiyouScore/SVProgressHUD.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -95,5 +96,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-XiyouScore/MJRefresh.framework"
   install_framework "Pods-XiyouScore/Masonry.framework"
   install_framework "Pods-XiyouScore/SDWebImage.framework"
+  install_framework "Pods-XiyouScore/SFHFKeychainUtils.framework"
   install_framework "Pods-XiyouScore/SVProgressHUD.framework"
 fi

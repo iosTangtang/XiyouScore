@@ -378,7 +378,7 @@ static int const kLineWidth = 60;
     [self presentViewController:year animated:YES completion:nil];
 }
 
-#pragma mark - NSNotification
+#pragma mark - yearButtonNSNotification
 - (void)changeYearButton:(id)sender {
     [self.yearButton setTitle:[[sender userInfo] objectForKey:@"title"] forState:UIControlStateNormal];
     self.yearButton.titleLabel.font = [UIFont fontWithName:@"PingFang SC" size:17.f];
@@ -389,9 +389,14 @@ static int const kLineWidth = 60;
     
 }
 
+#pragma mark - loginNSNotification
 - (void)setupModel:(id)sender {
+    //修正重新登录时标题的位置
+    [self buttonAction:self.titleButtons[0]];
+    //修正重新登录时选择学年的初始
     [self.yearButton setTitle:@"选择学年" forState:UIControlStateNormal];
     
+    //解析数据
     NSDictionary *dic = [sender userInfo];
     NSDictionary *result = dic[@"result"];
     

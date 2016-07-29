@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '897F37769B84B9BC18BB7543'
-               BlueprintName = 'Pods-XiyouScore'
+               BlueprintIdentifier = '63F4C273B902C5062BD9C5AB'
+               BlueprintName = 'SFHFKeychainUtils'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Pods_XiyouScore.framework'>
+               BuildableName = 'SFHFKeychainUtils.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

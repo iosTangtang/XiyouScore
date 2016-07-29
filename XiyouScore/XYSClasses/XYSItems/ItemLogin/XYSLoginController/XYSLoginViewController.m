@@ -2,6 +2,8 @@
 //  XYSLoginViewController.m
 //  XiyouScore
 //
+//  该界面和四级共用一个界面
+//
 //  Created by Tangtang on 16/7/23.
 //  Copyright © 2016年 Tangtang. All rights reserved.
 //
@@ -12,6 +14,7 @@
 #import "XYSTextField.h"
 #import "SVProgressHUD.h"
 #import "XYSHTTPRequestManager.h"
+#import "SFHFKeychainUtils.h"
 
 #define MAX_REQUEST 3
 
@@ -20,10 +23,7 @@
 @property (nonatomic, strong) XYSTextField   *userName;
 @property (nonatomic, strong) XYSTextField   *password;
 @property (nonatomic, strong) UIButton       *loginButton;
-//@property (nonatomic, copy)   NSDictionary   *userDict;
 @property (nonatomic, copy)   NSDictionary   *scoreDict;
-//@property (nonatomic, copy)   NSData         *imageData;
-//@property (nonatomic, assign) NSInteger      count;
 
 @end
 
@@ -34,10 +34,12 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self p_setupTextField];
-//    self.count = 0;
     
     if (_isCET == NO) {
         [self p_addCreator];
+        if (self.isAuto) {
+            [self p_autoLogin];
+        }
     }
     
 }
@@ -79,11 +81,6 @@
     self.password.font = [UIFont fontWithName:@"PingFang SC" size:15.0];
     [self.view addSubview:self.password];
     
-    if (self.isCET == NO) {
-        self.userName.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-        self.password.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"passWord"];
-    }
-    
     self.loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.loginButton.backgroundColor = [UIColor colorWithRed:61 / 255.0 green:118 / 255.0 blue:203 / 255.0 alpha:0.7];
     [self.loginButton setTitle:self.buttonPlace forState:UIControlStateNormal];
@@ -113,6 +110,16 @@
         make.height.equalTo(self.userName);
     }];
     
+}
+
+#pragma mark - AutoLogin
+- (void)p_autoLogin {
+    NSError *error;
+    self.userName.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    self.password.text = [SFHFKeychainUtils getPasswordForUsername:self.userName.text andServiceName:SAVE_NAME error:&error];
+    if (![self.userName.text isEqualToString:@""] && ![self.password.text isEqualToString:@""]) {
+        [self p_loginAction];
+    }
 }
 
 #pragma mark - addCreator
@@ -157,8 +164,17 @@
                 [weakSelf webRequest:session];
                 [[NSUserDefaults standardUserDefaults] setObject:session forKey:@"sessionKey"];
                 [[NSUserDefaults standardUserDefaults] setObject:self.userName.text forKey:@"userName"];
-                [[NSUserDefaults standardUserDefaults] setObject:self.password.text forKey:@"passWord"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
+                NSError *saveError;
+                BOOL succee = [SFHFKeychainUtils storeUsername:self.userName.text
+                                                    andPassword:self.password.text
+                                                 forServiceName:SAVE_NAME
+                                                 updateExisting:YES
+                                                          error:&saveError];
+                if (!succee) {
+                    NSLog(@"保存密码出错");
+                }
+
             } else {
                 [SVProgressHUD showErrorWithStatus:@"用户名或密码错误"];
             }
@@ -176,10 +192,11 @@
             [self.navigationController pushViewController:cetVC animated:YES];
         });
         
-    }
+    } 
 
 }
 
+#pragma mark - 网络请求
 - (void)webRequest:(NSString *)session {
     XYSHTTPRequestManager *request = [XYSHTTPRequestManager createInstance];
     
@@ -198,6 +215,7 @@
 
 }
 
+#pragma mark - 网络请求结束  分发数据
 - (void)endRequest {
 
     [SVProgressHUD dismiss];

@@ -11,6 +11,9 @@
 #import "XYSExitCell.h"
 #import "XYSTermHeaderView.h"
 #import "XYSScoreModel.h"
+#import "XYSHTTPRequestManager.h"
+#import "SVProgressHUD.h"
+#import "SFHFKeychainUtils.h"
 #import <MJRefresh/MJRefresh.h>
 
 #define KHEADWIDTH 60
@@ -169,13 +172,16 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *headTitle = nil;
+    NSInteger sum;
     if (section == 0) {
         headTitle = @"第一学期";
+        sum = self.termModel.scoresTermOne.count;
     } else {
         headTitle = @"第二学期";
+        sum = self.termModel.scoresTermTwo.count;
     }
     
-    XYSTermHeaderView *header = [[XYSTermHeaderView alloc] initWithTitle:headTitle WithRank:@"6"];
+    XYSTermHeaderView *header = [[XYSTermHeaderView alloc] initWithTitle:headTitle WithRank:[NSString stringWithFormat:@"%ld", sum]];
     
     header.frame = CGRectMake(0, 0, self.view.frame.size.width, KHEADWIDTH);
     header.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -193,11 +199,42 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
 
 #pragma mark - 下拉刷新事件
 - (void)p_loadHeadData {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    if (![self.yearStr isEqualToString:@""] && self.yearStr) {
+        NSError *passError;
+        NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+        NSString *session = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionKey"];
+        NSString *passWord = [SFHFKeychainUtils getPasswordForUsername:userName andServiceName:SAVE_NAME error:&passError];
         
-        [self.tableView reloadData];
+        __weak typeof(self) weakSelf = self;
+        
+        NSString *url = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/score/year"];
+        XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
+        [requestManager postDataWithUrl:url WithParams:@{@"username" : userName, @"password" : passWord, @"session" : session,@"year" : self.yearStr, @"update" : @"update"} success:^(id dic) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
+            NSString *errorStr = dict[@"error"];
+            if (![errorStr boolValue]) {
+                XYSTermModel *tempModel = weakSelf.termModel;
+                NSDictionary *result = dict[@"result"];
+                NSArray *score = result[@"score"];
+                tempModel.scoresTermOne = [weakSelf getTermMessage:score[0]];
+                tempModel.scoresTermTwo = [weakSelf getTermMessage:score[1]];
+                weakSelf.termModel = tempModel;
+                [self.tableView reloadData];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"加载失败"];
+            }
+            [self.tableView.header endRefreshing];
+            
+        } error:^(NSError *error) {
+            NSLog(@"%@", error);
+            [SVProgressHUD showErrorWithStatus:@"网络异常"];
+            [self.tableView.header endRefreshing];
+        }];
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"请选择学年"];
         [self.tableView.header endRefreshing];
-    });
+    }
+    
 }
 
 #pragma mark - 展开收缩section中cell 手势监听
@@ -272,6 +309,26 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
             }
         }
     }
+}
+
+#pragma mark - 下拉刷新解析数据方法
+- (NSMutableArray *)getTermMessage:(NSDictionary *)dic {
+    NSArray *scores = dic[@"Scores"];
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSDictionary *scoreDic in scores) {
+        XYSScoreModel *scoreModel = [[XYSScoreModel alloc] init];
+        scoreModel.score = scoreDic[@"EndScore"];
+        scoreModel.credit = scoreDic[@"Credit"];
+        scoreModel.regularGrade = scoreDic[@"UsualScore"];
+        scoreModel.volumeGrade = scoreDic[@"RealScore"];
+        scoreModel.academy = scoreDic[@"School"];
+        scoreModel.course = scoreDic[@"Title"];
+        scoreModel.courseQuality = scoreDic[@"Type"];
+        scoreModel.makeupScore = scoreDic[@"ReScore"];
+        scoreModel.exam = scoreDic[@"Exam"];
+        [array addObject:scoreModel];
+    }
+    return array;
 }
 
 @end

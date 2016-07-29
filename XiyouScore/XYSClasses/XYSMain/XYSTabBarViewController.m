@@ -32,6 +32,7 @@
         loginVC.keyPlace = @"请输入密码";
         loginVC.buttonPlace = @"登陆";
         loginVC.isCET = NO;
+        loginVC.isAuto = YES;
         XYSNavigationViewController *navc = [[XYSNavigationViewController alloc] initWithRootViewController:loginVC];
         [self presentViewController:navc animated:NO completion:nil];
         
@@ -99,6 +100,7 @@
     loginVC.keyPlace = @"请输入密码";
     loginVC.buttonPlace = @"登陆";
     loginVC.isCET = NO;
+    loginVC.isAuto = NO;
     XYSNavigationViewController *navc = [[XYSNavigationViewController alloc] initWithRootViewController:loginVC];
     [self presentViewController:navc animated:NO completion:nil];
 }

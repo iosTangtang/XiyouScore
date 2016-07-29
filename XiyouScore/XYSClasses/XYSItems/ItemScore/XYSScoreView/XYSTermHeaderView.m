@@ -62,20 +62,20 @@
     [backView addSubview:myLabel];
     
     [myLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(backView.center);
-//        make.left.equalTo(backView.left).offset(20);
+        make.centerY.equalTo(backView.centerY);
+        make.left.equalTo(backView.left).offset(20);
     }];
     
-//    UILabel *rankLabel = [[UILabel alloc]init];
-//    rankLabel.text = [NSString stringWithFormat:@"专业排名: %@", self.rank];
-//    rankLabel.textColor = [UIColor grayColor];
-//    rankLabel.font = [UIFont fontWithName:@"PingFang SC" size:15.f];
-//    [backView addSubview:rankLabel];
-//    
-//    [rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(backView.centerY);
-//        make.right.equalTo(backView.right).offset(-20);
-//    }];
+    UILabel *rankLabel = [[UILabel alloc]init];
+    rankLabel.text = [NSString stringWithFormat:@"学科数: %@", self.rank];
+    rankLabel.textColor = [UIColor grayColor];
+    rankLabel.font = [UIFont fontWithName:@"PingFang SC" size:15.f];
+    [backView addSubview:rankLabel];
+    
+    [rankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(backView.centerY);
+        make.right.equalTo(backView.right).offset(-20);
+    }];
 }
 
 @end

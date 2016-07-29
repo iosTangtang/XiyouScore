@@ -14,6 +14,8 @@
 #import "XYSNavigationViewController.h"
 #import "XYSExitCell.h"
 #import "XYSSetHeader.h"
+#import "SVProgressHUD.h"
+#import "SFHFKeychainUtils.h"
 
 static NSString * const kSetCell = @"kSetCell";
 static NSString * const kExitCell = @"kExitCell";
@@ -126,6 +128,8 @@ static NSString * const kExitCell = @"kExitCell";
             faqVC.hidesBottomBarWhenPushed = YES;
             faqVC.title = [self.messArray[indexPath.row] objectForKey:@"title"];;
             [self.navigationController pushViewController:faqVC animated:YES];
+        } else if (indexPath.row == 2) {
+            [SVProgressHUD showSuccessWithStatus:@"清除成功"];
         } else if (indexPath.row == 4) {
             XYSAboutUSController *aboutUsVC = [[XYSAboutUSController alloc] init];
             aboutUsVC.hidesBottomBarWhenPushed = YES;
