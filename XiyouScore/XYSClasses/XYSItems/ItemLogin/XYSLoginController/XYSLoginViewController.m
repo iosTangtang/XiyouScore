@@ -149,7 +149,7 @@
         [self.userName resignFirstResponder];
         [self.password resignFirstResponder];
         
-        [SVProgressHUD showWithStatus:@"登陆中"];
+        [SVProgressHUD showWithStatus:@"登录中"];
         
         __weak typeof(self) weakSelf = self;
         

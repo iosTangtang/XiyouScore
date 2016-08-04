@@ -9,7 +9,7 @@
 #import "XYSOutWardController.h"
 #import "SVProgressHUD.h"
 
-#define URLSTR @"http://222.24.19.201/default4.aspx"
+#define URLSTR @"http://sztz.xupt.edu.cn/?plg_nld=1&plg_usr=1&plg_vkey=1&plg_dev=1&plg_uin=1&plg_nld=1"
 
 @interface XYSOutWardController ()<UIWebViewDelegate>
 
@@ -160,7 +160,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error {
-    NSLog(@"%@", error);
+    [SVProgressHUD showErrorWithStatus:@"加载出错"];
     [self.reload setBackgroundImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
 }
 
