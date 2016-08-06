@@ -36,7 +36,6 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
 - (XYSTermModel *)termModel {
     if (_termModel == nil) {
         _termModel = [[XYSTermModel alloc] init];
-        
     }
     return _termModel;
 }
@@ -305,10 +304,11 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
                 }
                 
                 self.termModel = tempModel;
-                [self.tableView reloadData];
+                
             }
         }
     }
+    [self.tableView reloadData];
 }
 
 #pragma mark - 下拉刷新解析数据方法
