@@ -31,17 +31,21 @@
     
     self.userName = @"03151274";
     self.passWord = @"FRANfulan520";
+    NSString *str = @"唐年";
     
-//    __weak typeof(self) weakSelf = self;
+    NSData *nsdata = [@"610151152105913"
+                      dataUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *url = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/score/year"];
+    NSString *base64Encoded = [nsdata base64EncodedStringWithOptions:0];
+
+    NSData *data1 = [[self getDateStr] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *baseStr = [data1 base64EncodedStringWithOptions:0];
+    
+    NSString *url = [NSString stringWithFormat:@"http://139.129.210.109/xuptqueryscore/servlet/CetServlet"];
     XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
-    [requestManager postDataWithUrl:url WithParams:@{@"username" : self.userName, @"password" : self.passWord, @"session" : @"ASP.NET_SessionId=4mkhrsv2lwmmvaj515y1jj45", @"year" : @"2015-2016", @"update" : @"update"} success:^(id dic) {
+    [requestManager postDataWithUrl:url WithParams:@{@"Time" : baseStr, @"Ticket" : base64Encoded, @"Name" : [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]} success:^(id dic) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
         NSLog(@"%@", dict);
-//        NSDictionary *sessionDic = dict[@"result"];
-//        NSString *session = sessionDic[@"session"];
-//        [weakSelf webRequest:session];
         
     } error:^(NSError *error) {
         NSLog(@"%@", error);
@@ -49,13 +53,12 @@
     
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    
-    if ([keyPath isEqualToString:@"fractionCompleted"] && [object isKindOfClass:[NSProgress class]]) {
-        NSProgress *progress = (NSProgress *)object;
-        NSLog(@"Progress is %f", progress.fractionCompleted);
-    }
-    
+- (NSString *)getDateStr {
+    NSDate *nowDate = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+    NSLog(@"%@", [formatter stringFromDate:nowDate]);
+    return [formatter stringFromDate:nowDate];
 }
 
 - (void)didReceiveMemoryWarning {
