@@ -18,9 +18,10 @@
                         <rect key="frame" x="10" y="4" width="300" height="115.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C语言" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLK-iN-r3W">
-                                <rect key="frame" x="8" y="8" width="44" height="21"/>
+                                <rect key="frame" x="8" y="8" width="240" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="DU0-HI-Kko"/>
+                                    <constraint firstAttribute="width" constant="240" id="ycp-Hn-U6g"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -162,6 +163,7 @@
                             <constraint firstItem="Rbl-PK-NfK" firstAttribute="top" secondItem="vXR-xD-5yl" secondAttribute="top" constant="58" id="foN-wb-smz"/>
                             <constraint firstItem="1kt-Pz-gKF" firstAttribute="leading" secondItem="xQw-aK-f96" secondAttribute="trailing" constant="28" id="j3W-SO-2qy"/>
                             <constraint firstItem="xQw-aK-f96" firstAttribute="leading" secondItem="Xiw-YL-Yf6" secondAttribute="trailing" id="mEN-u7-TVs"/>
+                            <constraint firstItem="taN-fr-IDC" firstAttribute="leading" secondItem="wLK-iN-r3W" secondAttribute="trailing" constant="60" id="pH6-iU-V5x"/>
                             <constraint firstItem="1kt-Pz-gKF" firstAttribute="top" secondItem="Rbl-PK-NfK" secondAttribute="bottom" constant="8" id="uhE-81-pmO"/>
                             <constraint firstItem="Xiw-YL-Yf6" firstAttribute="top" secondItem="YQI-nt-yn7" secondAttribute="bottom" constant="8" id="vPm-JG-UDv"/>
                             <constraint firstItem="Kem-X8-eZ2" firstAttribute="top" secondItem="Rbl-PK-NfK" secondAttribute="bottom" constant="8" id="wAn-EU-yZH"/>
@@ -170,6 +172,7 @@
                             <mask key="constraints">
                                 <exclude reference="5KQ-dr-E60"/>
                                 <exclude reference="foN-wb-smz"/>
+                                <exclude reference="pH6-iU-V5x"/>
                             </mask>
                         </variation>
                     </view>

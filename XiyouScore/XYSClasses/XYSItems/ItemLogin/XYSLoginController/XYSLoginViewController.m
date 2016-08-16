@@ -199,17 +199,19 @@
     XYSHTTPRequestManager *request = [XYSHTTPRequestManager createInstance];
     
     __weak typeof(self) weakSelf = self;
-    NSLog(@"%@", session);
     
-    NSString *url2 = [NSString stringWithFormat:@"%@%@", XYS_IP, @"/score/all"];
-    [request postDataWithUrl:url2 WithParams:@{@"username" : self.userName.text, @"session" : session} success:^(id dic) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
-        weakSelf.scoreDict = dict;
-        [weakSelf endRequest];
-    } error:^(NSError *error) {
+    if (session != nil) {
+        NSString *url2 = [NSString stringWithFormat:@"%@%@", XYS_IP, @"/score/all"];
+        [request postDataWithUrl:url2 WithParams:@{@"username" : self.userName.text, @"session" : session} success:^(id dic) {
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
+            weakSelf.scoreDict = dict;
+            [weakSelf endRequest];
+        } error:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"网络异常"];
+        }];
+    } else {
         [SVProgressHUD showErrorWithStatus:@"网络异常"];
-    }];
-    
+    }
 
 }
 
