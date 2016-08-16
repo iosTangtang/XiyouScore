@@ -23,7 +23,7 @@ static NSString * const kCETCell = @"kCETCell";
 #pragma mark - lazy
 - (NSArray *)titleArray {
     if (_titleArray == nil) {
-        _titleArray = @[@[@"姓名", @"学校", @"考试类别", @"考试时间"], @[@"总分", @"听力", @"阅读", @"写作与翻译"]];
+        _titleArray = @[@[@"姓名", @"学校", @"考试类别", @"准考证号", @"考试时间"], @[@"总分", @"听力", @"阅读", @"写作与翻译"]];
     }
     return _titleArray;
 }
@@ -65,18 +65,22 @@ static NSString * const kCETCell = @"kCETCell";
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return self.titleArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return [self.titleArray[section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     XYSCETTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCETCell];
     cell.titleLabel.text = [[self.titleArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.valueLabel.text = @"xxx";
+    if ([self.cetScores[indexPath.section] count] <= 0) {
+        cell.valueLabel.text = @"xxx";
+    } else {
+        cell.valueLabel.text = [self.cetScores[indexPath.section] objectAtIndex:indexPath.row];
+    }
     
     return cell;
 }

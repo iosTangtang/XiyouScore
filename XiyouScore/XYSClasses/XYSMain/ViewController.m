@@ -9,6 +9,10 @@
 #import "ViewController.h"
 #import "XYSHTTPRequestSession.h"
 #import "XYSHTTPRequestManager.h"
+#import "AFHTTPSessionManager.h"
+#import "TFHpple.h"
+#import "TFHppleElement.h"
+#import "XPathQuery.h"
 
 #define MAX_REQUEST 3
 
@@ -27,25 +31,51 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.count = 0;
+//    self.count = 0;
+//    
+//    self.userName = @"03151274";
+//    self.passWord = @"FRANfulan520";
+//    NSString *str = @"唐年";
+//    
+//    NSData *nsdata = [@"610151152105913"
+//                      dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    NSString *base64Encoded = [nsdata base64EncodedStringWithOptions:0];
+//
+//    NSData *data1 = [[self getDateStr] dataUsingEncoding:NSUTF8StringEncoding];
+//    NSString *baseStr = [data1 base64EncodedStringWithOptions:0];
     
-    self.userName = @"03151274";
-    self.passWord = @"FRANfulan520";
-    NSString *str = @"唐年";
-    
-    NSData *nsdata = [@"610151152105913"
-                      dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSString *base64Encoded = [nsdata base64EncodedStringWithOptions:0];
-
-    NSData *data1 = [[self getDateStr] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *baseStr = [data1 base64EncodedStringWithOptions:0];
-    
-    NSString *url = [NSString stringWithFormat:@"http://139.129.210.109/xuptqueryscore/servlet/CetServlet"];
+    NSString *url = [NSString stringWithFormat:@"http://www.chsi.com.cn/cet/query?zkzh=610151152105913&xm=唐年"];
+    NSString *urlSTR = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
-    [requestManager postDataWithUrl:url WithParams:@{@"Time" : baseStr, @"Ticket" : base64Encoded, @"Name" : [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]} success:^(id dic) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
-        NSLog(@"%@", dict);
+    [requestManager getDataWithUrl:urlSTR WithParams:@{@"zkzh" : @"610151152105913", @"xm" : @"唐年"} success:^(id dic) {
+        NSArray *cookies   = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:urlSTR]];
+        NSHTTPCookie *test = cookies[0];
+        NSString *cookie   = [NSString stringWithFormat:@"%@=%@",test.name,test.value];
+        
+        AFHTTPSessionManager *sessionManager = [[AFHTTPSessionManager alloc] init];
+        sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/xml", nil];
+        sessionManager.requestSerializer  = [AFHTTPRequestSerializer serializer];
+        sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [sessionManager.requestSerializer setValue:cookie forHTTPHeaderField:@"Cookie"];
+        [sessionManager.requestSerializer setValue:@"http://www.chsi.com.cn/cet/" forHTTPHeaderField:@"Referer"];
+        
+        [sessionManager GET:urlSTR parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+
+            TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:responseObject];
+            NSArray *elements  = [xpathParser searchWithXPathQuery:@"//td"];
+            for (TFHppleElement *obj2 in elements) {
+                if ([obj2.attributes[@"class"] isEqualToString:@"fontBold"]) {
+                    for (TFHppleElement *obj3 in obj2.children) {
+                        NSLog(@"%@", [obj3.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]);
+                    }
+                } else {
+                    NSLog(@"%@", [obj2.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]);
+                }
+            }
+        } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+            NSLog(@"%@", error);
+        }];
         
     } error:^(NSError *error) {
         NSLog(@"%@", error);
@@ -53,63 +83,11 @@
     
 }
 
-- (NSString *)getDateStr {
-    NSDate *nowDate = [NSDate date];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
-    NSLog(@"%@", [formatter stringFromDate:nowDate]);
-    return [formatter stringFromDate:nowDate];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)webRequest:(NSString *)session {
-    XYSHTTPRequestManager *request = [XYSHTTPRequestManager createInstance];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    NSString *url1 = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/users/info"];
-    [request postDataWithUrl:url1 WithParams:@{@"username" : weakSelf.userName, @"password" : weakSelf.passWord, @"session" : session} success:^(id dic) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
-//        NSLog(@"11111111----%@", dict);
-        weakSelf.diction1 = dict;
-        [weakSelf endRequest];
-    } error:^(NSError *error) {
-        NSLog(@"11111111----%@", error);
-    }];
-    
-    NSString *url2 = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/score/all"];
-    [request postDataWithUrl:url2 WithParams:@{@"username" : weakSelf.userName, @"session" : session} success:^(id dic) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
-//        NSLog(@"22222222----%@", dict);
-        weakSelf.diction2 = dict;
-        [weakSelf endRequest];
-    } error:^(NSError *error) {
-        NSLog(@"22222222----%@", error);
-    }];
-    
-    NSString *url = [NSString stringWithFormat:@"http://scoreapi.xiyoumobile.com/users/img"];
-    [request postDataWithUrl:url WithParams:@{@"username" : weakSelf.userName, @"session" : session} success:^(id dic) {
-//            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
-//        NSLog(@"33333333----%@", dic);
-        weakSelf.data = dic;
-        [weakSelf endRequest];
-    } error:^(NSError *error) {
-        NSLog(@"33333333----%@", error);
-    }];
-}
 
-- (void)endRequest {
-    self.count++;
-    if (self.count == MAX_REQUEST) {
-        NSLog(@"end");
-        NSLog(@"%@", self.diction1);
-        NSLog(@"%@", self.diction2);
-        NSLog(@"%ld", [self.data length]);
-    }
-}
 
 @end

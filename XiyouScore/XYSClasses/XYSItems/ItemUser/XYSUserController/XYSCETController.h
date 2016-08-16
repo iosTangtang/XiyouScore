@@ -10,4 +10,6 @@
 
 @interface XYSCETController : UIViewController
 
+@property (nonatomic, copy) NSArray *cetScores;
+
 @end

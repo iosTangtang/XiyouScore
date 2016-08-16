@@ -15,6 +15,10 @@
 #import "SVProgressHUD.h"
 #import "XYSHTTPRequestManager.h"
 #import "SFHFKeychainUtils.h"
+#import "AFHTTPSessionManager.h"
+#import "TFHpple.h"
+#import "TFHppleElement.h"
+#import "XPathQuery.h"
 
 #define MAX_REQUEST 3
 
@@ -145,10 +149,10 @@
 
 #pragma mark - buttonAction
 - (void)p_loginAction {
+    [self.userName resignFirstResponder];
+    [self.password resignFirstResponder];
+    
     if (_isCET == NO) {
-        [self.userName resignFirstResponder];
-        [self.password resignFirstResponder];
-        
         [SVProgressHUD showWithStatus:@"登录中"];
         
         __weak typeof(self) weakSelf = self;
@@ -185,13 +189,7 @@
         
     } else {
         [SVProgressHUD showWithStatus:@"查询中"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-            XYSCETController *cetVC = [[XYSCETController alloc] init];
-            cetVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:cetVC animated:YES];
-        });
-        
+        [self cetQuery];
     } 
 
 }
@@ -213,6 +211,72 @@
     }];
     
 
+}
+
+#pragma mark - 四六级查询请求
+- (void)cetQuery {
+    
+    NSString *url = [NSString stringWithFormat:@"http://www.chsi.com.cn/cet/query?zkzh=%@&xm=%@", self.userName.text, self.password.text];
+    NSString *urlSTR = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
+    [requestManager getDataWithUrl:urlSTR WithParams:nil success:^(id dic) {
+        NSArray *cookies   = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:urlSTR]];
+        NSHTTPCookie *test = cookies[0];
+        NSString *cookie   = [NSString stringWithFormat:@"%@=%@",test.name,test.value];
+        
+        AFHTTPSessionManager *sessionManager = [[AFHTTPSessionManager alloc] init];
+        sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/xml", nil];
+        sessionManager.requestSerializer  = [AFHTTPRequestSerializer serializer];
+        sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [sessionManager.requestSerializer setValue:cookie forHTTPHeaderField:@"Cookie"];
+        [sessionManager.requestSerializer setValue:@"http://www.chsi.com.cn/cet/" forHTTPHeaderField:@"Referer"];
+        
+        [sessionManager GET:urlSTR parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+            
+            NSMutableArray *result = [NSMutableArray array];
+            NSMutableArray *messArray = [NSMutableArray array];
+            NSMutableArray *scoreArray = [NSMutableArray array];
+            TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:responseObject];
+            NSArray *elements  = [xpathParser searchWithXPathQuery:@"//td"];
+            for (TFHppleElement *obj2 in elements) {
+                if ([obj2.attributes[@"class"] isEqualToString:@"fontBold"]) {
+                    for (TFHppleElement *obj3 in obj2.children) {
+                        NSString *objStr = [obj3.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        if (![objStr isEqualToString:@"听力："] &&
+                            ![objStr isEqualToString:@"阅读："] &&
+                            ![objStr isEqualToString:@"写作与翻译："] &&
+                            ![objStr isEqualToString:@""]) {
+                            [scoreArray addObject:objStr];
+                        }
+                    }
+                } else {
+                    NSString *objStr = [obj2.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    if (![objStr isEqualToString:@""]) {
+                        [messArray addObject:objStr];
+                    }
+                }
+            }
+            if (messArray.count <= 0 || scoreArray.count <= 0) {
+                [SVProgressHUD showInfoWithStatus:@"查询失败！请检查网络及输入的信息"];
+            } else {
+                [result addObject:messArray];
+                [result addObject:scoreArray];
+                [SVProgressHUD dismiss];
+                XYSCETController *cetVC = [[XYSCETController alloc] init];
+                cetVC.cetScores = result;
+                cetVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:cetVC animated:YES];
+            }
+            
+        } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+            [SVProgressHUD showInfoWithStatus:@"查询失败！请检查网络及输入的信息"];
+            NSLog(@"%@", error);
+        }];
+        
+    } error:^(NSError *error) {
+        NSLog(@"%@", error);
+        [SVProgressHUD showInfoWithStatus:@"查询失败！请检查网络及输入的信息"];
+    }];
 }
 
 #pragma mark - 网络请求结束  分发数据
