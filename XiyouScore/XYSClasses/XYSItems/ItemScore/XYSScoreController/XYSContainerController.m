@@ -181,7 +181,7 @@ static int const kLineWidth = 60;
     //添加4个占位View
     UIView *tempView = nil;
     for (int i = 0; i < self.childViewControllers.count; i++) {
-        UIView *view = [[UIView alloc] init];
+        UIView *view = [self.childViewControllers objectAtIndex:i].view;
         view.backgroundColor = [UIColor whiteColor];
         [self.containScroller addSubview:view];
         
@@ -191,7 +191,7 @@ static int const kLineWidth = 60;
                 make.width.equalTo(self.view.mas_width);
                 make.height.equalTo(self.containScroller.mas_height);
             }];
-        } else if(i == 3){
+        } else if(i == self.childViewControllers.count - 1){
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(tempView.mas_right).offset(0);
                 make.top.right.bottom.equalTo(self.containScroller);
@@ -250,7 +250,7 @@ static int const kLineWidth = 60;
     [self p_selectButton:sender];
     
     NSUInteger index = sender.tag;
-    [self p_setupOneChildController:index];
+//    [self p_setupOneChildController:index];
     _currentX = index;
     
     self.containScroller.contentOffset = CGPointMake(index * self.view.frame.size.width, 0);
@@ -300,45 +300,45 @@ static int const kLineWidth = 60;
 }
 
 #pragma mark - 添加一个子视图方法
-- (void)p_setupOneChildController:(NSUInteger)index {
-    UIViewController *VC = self.childViewControllers[index];
-    
-    //判断是否已经加上
-    if (VC.view.superview) {
-        return;
-    }
-    
-    [self.containScroller addSubview:VC.view];
-    
-    if (index == 0) {
-        [VC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.bottom.equalTo(self.containScroller);
-            make.width.equalTo(self.view.mas_width);
-            make.height.equalTo(self.containScroller.mas_height);
-        }];
-    } else if(index == 3){
-        [VC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_preView.mas_right).offset(0);
-            make.top.right.bottom.equalTo(self.containScroller);
-            make.width.equalTo(self.view.mas_width);
-            make.height.equalTo(self.containScroller.mas_height);
-        }];
-    } else {
-        [VC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_preView.mas_right).offset(0);
-            make.top.bottom.equalTo(self.containScroller);
-            make.width.equalTo(self.view.mas_width);
-            make.height.equalTo(self.containScroller.mas_height);
-        }];
-    }
-    _preView = VC.view;
-}
+//- (void)p_setupOneChildController:(NSUInteger)index {
+//    UIViewController *VC = self.childViewControllers[index];
+//    
+//    //判断是否已经加上
+//    if (VC.view.superview) {
+//        return;
+//    }
+//    
+//    [self.containScroller addSubview:VC.view];
+//    
+//    if (index == 0) {
+//        [VC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.top.bottom.equalTo(self.containScroller);
+//            make.width.equalTo(self.view.mas_width);
+//            make.height.equalTo(self.containScroller.mas_height);
+//        }];
+//    } else if(index == 3){
+//        [VC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(_preView.mas_right).offset(0);
+//            make.top.right.bottom.equalTo(self.containScroller);
+//            make.width.equalTo(self.view.mas_width);
+//            make.height.equalTo(self.containScroller.mas_height);
+//        }];
+//    } else {
+//        [VC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(_preView.mas_right).offset(0);
+//            make.top.bottom.equalTo(self.containScroller);
+//            make.width.equalTo(self.view.mas_width);
+//            make.height.equalTo(self.containScroller.mas_height);
+//        }];
+//    }
+//    _preView = VC.view;
+//}
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     NSUInteger i = self.containScroller.contentOffset.x / self.view.frame.size.width;
     [self p_selectButton:self.titleButtons[i]];
-    [self p_setupOneChildController:i];
+//    [self p_setupOneChildController:i];
     _currentX = i;
 }
 
