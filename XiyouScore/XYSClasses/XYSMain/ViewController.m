@@ -45,41 +45,47 @@
 //    NSData *data1 = [[self getDateStr] dataUsingEncoding:NSUTF8StringEncoding];
 //    NSString *baseStr = [data1 base64EncodedStringWithOptions:0];
     
-    NSString *url = [NSString stringWithFormat:@"http://www.chsi.com.cn/cet/query?zkzh=610151152105913&xm=唐年"];
+    NSString *url = [NSString stringWithFormat:@"http://222.24.62.120/xs_main.aspx?xh=04143031"];
     NSString *urlSTR = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
-    [requestManager getDataWithUrl:urlSTR WithParams:@{@"zkzh" : @"610151152105913", @"xm" : @"唐年"} success:^(id dic) {
-        NSArray *cookies   = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:urlSTR]];
-        NSHTTPCookie *test = cookies[0];
-        NSString *cookie   = [NSString stringWithFormat:@"%@=%@",test.name,test.value];
-        
+//    XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
+//    [requestManager getDataWithUrl:urlSTR WithParams:@{} success:^(id dic) {
+//        NSArray *cookies   = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:urlSTR]];
+//        NSHTTPCookie *test = cookies[0];
+//        NSString *cookie   = [NSString stringWithFormat:@"%@=%@",test.name,test.value];
+    NSString *cookie = @"ASP.NET_SessionId=5zeak345by0kea45clytuza0";
+    
         AFHTTPSessionManager *sessionManager = [[AFHTTPSessionManager alloc] init];
-        sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/xml", nil];
+        sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];;
         sessionManager.requestSerializer  = [AFHTTPRequestSerializer serializer];
         sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         [sessionManager.requestSerializer setValue:cookie forHTTPHeaderField:@"Cookie"];
-        [sessionManager.requestSerializer setValue:@"http://www.chsi.com.cn/cet/" forHTTPHeaderField:@"Referer"];
-        
-        [sessionManager GET:urlSTR parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+//        [sessionManager.requestSerializer setValue:@"http://www.chsi.com.cn/cet/" forHTTPHeaderField:@"Referer"];
+    
+    [sessionManager GET:urlSTR parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
 
-            TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:responseObject];
-            NSArray *elements  = [xpathParser searchWithXPathQuery:@"//td"];
-            for (TFHppleElement *obj2 in elements) {
-                if ([obj2.attributes[@"class"] isEqualToString:@"fontBold"]) {
-                    for (TFHppleElement *obj3 in obj2.children) {
-                        NSLog(@"%@", [obj3.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]);
-                    }
-                } else {
-                    NSLog(@"%@", [obj2.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]);
-                }
-            }
+//            TFHpple *xpathParser = [[TFHpple alloc] initWithHTMLData:responseObject];
+//            NSArray *elements  = [xpathParser searchWithXPathQuery:@"//td"];
+//            for (TFHppleElement *obj2 in elements) {
+//                if ([obj2.attributes[@"class"] isEqualToString:@"fontBold"]) {
+//                    for (TFHppleElement *obj3 in obj2.children) {
+//                        NSLog(@"%@", [obj3.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]);
+//                    }
+//                } else {
+//                    NSLog(@"%@", [obj2.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]);
+//                }
+//            }
+        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            NSString *str = [[NSString alloc] initWithData:responseObject encoding:enc];
+            NSLog(@"%@", str);
+//            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+//            NSLog(@"%@", dic);
         } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
             NSLog(@"%@", error);
         }];
         
-    } error:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];
+//    } error:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
     
 }
 

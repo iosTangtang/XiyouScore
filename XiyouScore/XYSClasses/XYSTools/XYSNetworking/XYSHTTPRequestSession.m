@@ -44,7 +44,7 @@
         if ([XYSHTTPRequestManager createInstance].timeoutInterval != 0) {
             _sessionManager.requestSerializer.timeoutInterval = [XYSHTTPRequestManager createInstance].timeoutInterval;
         } else {
-            _sessionManager.requestSerializer.timeoutInterval = 20.f;
+            _sessionManager.requestSerializer.timeoutInterval = 30.f;
         }
     }
     return _sessionManager;

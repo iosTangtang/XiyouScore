@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong) XYSTextField   *userName;
 @property (nonatomic, strong) XYSTextField   *password;
+@property (nonatomic, strong) XYSTextField   *codeText;
+@property (nonatomic, strong) UIImageView    *codeImage;
 @property (nonatomic, strong) UIButton       *loginButton;
 @property (nonatomic, copy)   NSDictionary   *scoreDict;
 
@@ -41,9 +43,7 @@
     
     if (_isCET == NO) {
         [self p_addCreator];
-        if (self.isAuto) {
-            [self p_autoLogin];
-        }
+        [self p_getCodeImage];
     }
     
 }
@@ -95,6 +95,26 @@
     
     self.loginButton.enabled = NO;
     
+    if (_isCET == NO) {
+        self.codeText = [[XYSTextField alloc] init];
+        self.codeText.placeholder = @"验证码";
+        self.codeText.textAlignment = NSTextAlignmentCenter;
+        self.codeText.clearButtonMode = YES;
+        self.codeText.delegate = self;
+        self.codeText.returnKeyType = UIReturnKeyDone;
+        self.codeText.font = [UIFont fontWithName:@"PingFang SC" size:15.0];
+        [self.view addSubview:self.codeText];
+        
+        self.codeImage = [[UIImageView alloc] init];
+        self.codeImage.backgroundColor = [UIColor lightGrayColor];
+        self.codeImage.userInteractionEnabled = YES;
+        [self.view addSubview:self.codeImage];
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(p_getCodeImage)];
+        [self.codeImage addGestureRecognizer:tapGesture];
+    }
+    
+    //添加布局
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.top).offset(40);
         make.left.equalTo(self.view.left).offset(30);
@@ -108,22 +128,35 @@
         make.height.equalTo(self.userName.height);
     }];
     
-    [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.password.bottom).offset(20);
-        make.left.right.equalTo(self.userName);
-        make.height.equalTo(self.userName);
-    }];
-    
-}
-
-#pragma mark - AutoLogin
-- (void)p_autoLogin {
-    NSError *error;
-    self.userName.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    self.password.text = [SFHFKeychainUtils getPasswordForUsername:self.userName.text andServiceName:SAVE_NAME error:&error];
-    if (![self.userName.text isEqualToString:@""] && ![self.password.text isEqualToString:@""]) {
-        [self p_loginAction];
+    if (_isCET == NO) {
+        [self.codeImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.password.bottom).offset(10);
+            make.right.equalTo(self.password.right);
+            make.height.equalTo(self.userName.height);
+            make.width.equalTo(120);
+        }];
+        
+        [self.codeText mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.password.bottom).offset(10);
+            make.left.equalTo(self.password.left);
+            make.height.equalTo(self.userName.height);
+            make.right.equalTo(self.codeImage.left).offset(10);
+        }];
+        
+        [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.codeText.bottom).offset(20);
+            make.left.right.equalTo(self.userName);
+            make.height.equalTo(self.userName);
+        }];
+    } else {
+        [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.password.bottom).offset(20);
+            make.left.right.equalTo(self.userName);
+            make.height.equalTo(self.userName);
+        }];
     }
+    
+    
 }
 
 #pragma mark - addCreator
@@ -140,11 +173,45 @@
         make.height.equalTo(20);
         make.bottom.equalTo(self.view).offset(-30);
     }];
+    
+    NSError *passError = nil;
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    NSString *password = [SFHFKeychainUtils getPasswordForUsername:username andServiceName:SAVE_NAME error:&passError];
+    if (username) {
+        self.userName.text = username;
+    }
+    if (password) {
+        self.password.text = password;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - getCodeImage
+- (void)p_getCodeImage {
+    NSString *url = [NSString stringWithFormat:@"%@%@", XYS_IP, @"/users/verCode"];
+    XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
+    [requestManager postDataWithUrl:url WithParams:nil success:^(id dic) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary *result = dict[@"result"];
+        if (result) {
+            [[NSUserDefaults standardUserDefaults] setObject:result[@"session"] forKey:@"sessionKey"];
+            NSString *string = result[@"verCode" ];
+            NSArray *strArray = [string componentsSeparatedByString:@","];
+            if (strArray.count) {
+                NSData *imageData = [[NSData alloc] initWithBase64EncodedString:strArray[1] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.codeImage.image = [UIImage imageWithData:imageData];
+                });
+            }
+        }
+        
+    } error:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"请求验证码出错!"];
+    }];
 }
 
 #pragma mark - buttonAction
@@ -158,15 +225,16 @@
         __weak typeof(self) weakSelf = self;
         
         NSString *url = [NSString stringWithFormat:@"%@%@", XYS_IP, @"/users/login"];
+        NSString *sessionStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionKey"];
         XYSHTTPRequestManager *requestManager = [XYSHTTPRequestManager createInstance];
-        [requestManager postDataWithUrl:url WithParams:@{@"username" : self.userName.text, @"password" : self.password.text} success:^(id dic) {
+        [requestManager postDataWithUrl:url WithParams:@{@"username" : self.userName.text, @"password" : self.password.text, @"session" : sessionStr, @"verCode" : self.codeText.text} success:^(id dic) {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:dic options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"%@", dict);
             NSString *isError = dict[@"error"];
             if ([isError boolValue] == 0) {
                 NSDictionary *sessionDic = dict[@"result"];
                 NSString *session = sessionDic[@"session"];
                 [weakSelf webRequest:session];
-                [[NSUserDefaults standardUserDefaults] setObject:session forKey:@"sessionKey"];
                 [[NSUserDefaults standardUserDefaults] setObject:self.userName.text forKey:@"userName"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 NSError *saveError;
@@ -180,11 +248,23 @@
                 }
 
             } else {
-                [SVProgressHUD showErrorWithStatus:@"用户名或密码错误"];
+                NSString *result = dict[@"result"];
+                if ([result isEqualToString:@"Please check your password or vercode"]) {
+                    [SVProgressHUD showErrorWithStatus:@"验证码错误"];
+                } else {
+                    [SVProgressHUD showErrorWithStatus:@"用户名或密码错误"];
+                }
+                
+                [self p_getCodeImage];
             }
             
         } error:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:@"网络异常"];
+            if ([[NSString stringWithFormat:@"%ld", error.code] isEqualToString:@"-1001"]) {
+                [SVProgressHUD showErrorWithStatus:@"服务器异常"];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"网络异常"];
+            }
+            
         }];
         
     } else {

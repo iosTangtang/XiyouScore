@@ -252,6 +252,7 @@ static NSString * const kQueryScoreCell = @"kQueryScoreCell";
         [self.showDic removeObjectForKey:key];
     }
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:didSection] withRowAnimation:UITableViewRowAnimationFade];
+    
 }
 
 #pragma mark - 改变学年的监听事件
